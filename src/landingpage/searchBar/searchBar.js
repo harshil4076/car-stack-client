@@ -48,7 +48,7 @@ export default function SearchBar (props){
 
     })
     const getMakeSelection = (itemMake) => {
-        setData({...data, make: itemMake.make });
+        setData({...data, make: itemMake });
     }
 
     const getModelList = (makeInput) =>{
@@ -94,7 +94,7 @@ export default function SearchBar (props){
             justify="flex-end"
             alignItems="center">
                 <YearDropdown yearList={props.yearList} getYearSelection={getYearSelection} />
-                <SearchDropDown MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
+                <SearchDropDown labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
                 <SearchModel ModelList={data.modelList? data.modelList : null} getModelSelection={getModelSelection} />
                 <Locationdropdown LocationList={props.LocationList} getLocationSelection={getLocationSelection} />
                 <Button className={classes.searchButton} variant="contained" color="primary" disableElevation>
