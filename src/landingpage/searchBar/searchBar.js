@@ -93,9 +93,9 @@ export default function SearchBar (props){
             direction="row"
             justify="flex-end"
             alignItems="center">
-                <YearDropdown yearList={props.yearList} getYearSelection={getYearSelection} />
-                <SearchDropDown labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
-                <SearchModel ModelList={data.modelList? data.modelList : null} getModelSelection={getModelSelection} />
+                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={getYearSelection} />
+                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
+                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={getModelSelection} />
                 <Locationdropdown LocationList={props.LocationList} getLocationSelection={getLocationSelection} />
                 <Button className={classes.searchButton} variant="contained" color="primary" disableElevation>
                     Search

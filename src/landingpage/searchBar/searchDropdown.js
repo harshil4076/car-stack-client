@@ -8,8 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 200,
-        maxWidth: 300,
+        minWidth: props => 
+                  props.widthInput? 400: 200,
         backgroundColor: "white",
         borderRadius: "2px",
     },
@@ -32,8 +32,8 @@ const MenuProps = {
 
 
 export default function SearchDropDown (props){
- const { MakesList, getMakeSelection, labelTitle } = props;
-    const classes = useStyles()
+ const { MakesList, getMakeSelection, labelTitle, widthInput} = props;
+    const classes = useStyles(props)
     const [itemMake, setItemMake] = React.useState({
       "make": ""
     });

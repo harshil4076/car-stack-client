@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ManageAds from './manageAds';
-import { myGarage } from '../Store/Action/myGarage';
 import NewAd from "./PostAd/newAd"
 
 function TabPanel(props) {
@@ -45,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: 224,
+    height: "100%",
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -53,8 +52,7 @@ const useStyles = makeStyles(theme => ({
   newAd:{
     width: "100%",
     height: "100%",
-    backgroundColor: "#f5f5f5",
-    paddingTop: "10vh"
+    paddingTop: "5vh"
   }
 }));
 

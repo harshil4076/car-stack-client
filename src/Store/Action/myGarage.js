@@ -12,7 +12,7 @@ export function setMyGarage (list){
 export function myGarage(userdata, token){
     return dispatch => {
         return new Promise((resolve, reject) => {
-            return apiCall("get", `/api/user/${userdata}/ads/mygarage`,token)
+            return apiCall("get", `/api/user/${userdata}/ads/`, token)
             .then(({ addata }) => {
                 dispatch(setMyGarage(addata))
                 dispatch(removeError());

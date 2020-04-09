@@ -1,22 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 200,
-        maxWidth: 300,
+        minWidth: props => 
+            props.widthInput? 400: 200,
         backgroundColor: "white",
         borderRadius: "2px",
     },
     selectBox: {
       paddingLeft: "20px"
     }
-}));
+});
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -32,8 +31,9 @@ const MenuProps = {
 
 
 export default function YearDropdown (props){
-    const { yearList, getYearSelection } = props;
-    const classes = useStyles();
+    const classes = useStyles(props)
+
+    const { yearList, getYearSelection, widthInput} = props;
     const [Year, setYear] = React.useState({
        "year": "" 
     })
@@ -44,7 +44,7 @@ export default function YearDropdown (props){
         getYearSelection(Year.year)
     }, [Year.year])
     return(
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControl} >
                 <InputLabel className={classes.selectBox} >Select Year</InputLabel>
                     <Select
                         MenuProps={MenuProps}

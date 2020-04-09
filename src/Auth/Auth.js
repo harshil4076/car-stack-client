@@ -12,7 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link as LinkBs} from 'react-router-dom'
+import {Link as LinkBs} from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
+
 
 
 function Copyright() {
@@ -20,7 +23,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        CARSTACK
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -49,30 +52,78 @@ const useStyles = makeStyles(theme => ({
   links:{
       textDecoration: "none",
       color: "inherit"
+  },
+  errors:{
+    color: "red"
   }
 }));
 
-export default function SignUp(props) {
-  const { authUser } = props;
+export default function Auth(props) {
+  const { authUser, isSignin, isSignup } = props;
   const classes = useStyles();
-  const [signup, setsignup] = React.useState({
-    
-    "email": "",
-    "password": "",
-    "username": ""
+  
+  const formik = useFormik({
+    initialValues:{
+      username: '',
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().when("isSignup",{
+        is: true,
+        then: Yup.string()
+          .max(15, 'Must be 15 characters or less')
+          .required('Required'),
+      } ),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Required'),
+      password: Yup.string().when("isSignup", {
+        is: true , 
+        then: Yup.string()
+        .min(8, 'Must be 8 characters or more')
+        .required('Required'),
+      })
+    }),
+    onSubmit: values => {
+      const signin = {
+        "email": values.email,
+        "password": values.password
+      }
+      const signup = {
+        "username": values.username,
+        "email": values.email,
+        "password": values.password
+      }
+      if (isSignup){
+        alert(JSON.stringify(signup, null, 2));
+        handleSubmit(signup, signin, isSignup)
+      }
+      else{
+        alert(JSON.stringify(signin, null, 2));
+        handleSubmit(signup, signin, isSignup)
+      }
+    }
   })
-  const handleChange = (event) => {
-    setsignup({...signup, [event.target.name]: event.target.value})
-  }
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const authType = "signup"
-    authUser(authType, signup)
+  const handleSubmit = (signup, signin, isSignup) => {
+    if(isSignup){
+      const authType = "signup"
+      authUser(authType, signup)
+        .then(() => {
+          props.history.push("/myGarage")
+        }).catch(() => {
+          return
+        })
+    }else {
+      const authType = "signin"
+    authUser(authType, signin)
       .then(() => {
         props.history.push("/myGarage")
       }).catch(() => {
         return
       })
+    }
+    
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -82,22 +133,26 @@ export default function SignUp(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {isSignup? "Sign Up" : "Sign In"}
         </Typography>
-        <form className={classes.form} onChange={handleChange} onSubmit={handleSubmit} noValidate>
+        <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                autoComplete="Username"
-                name="username"
-                variant="outlined"
-                required
-                fullWidth
-                id="username"
-                label="username"
-                autoFocus
-              />
-            </Grid>
+            {isSignup ? 
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  autoComplete="Username"
+                  name="username"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="username"
+                  label="username"
+                  autoFocus
+                  {...formik.getFieldProps('username')}
+                />
+                {formik.touched.username && formik.errors.username? <div className={classes.errors}>{formik.errors.username}</div> : null}
+              </Grid> 
+              : null}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -107,7 +162,9 @@ export default function SignUp(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                {...formik.getFieldProps('email')}
               />
+              {formik.touched.email && formik.errors.email? <div className={classes.errors}>{formik.errors.email}</div> : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -119,14 +176,18 @@ export default function SignUp(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...formik.getFieldProps('password')}
               />
+              {formik.touched.password && formik.errors.password? <div className={classes.errors}>{formik.errors.password}</div> : null}
             </Grid>
-            <Grid item xs={12}>
+            { isSignup ? 
+              <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
+            : null}
           </Grid>
           <Button
             type="submit"
@@ -134,14 +195,20 @@ export default function SignUp(props) {
             variant="outlined"
             className={classes.submit}
           >
-            Sign Up
+            {isSignup? "Sign Up" : "Sign In"}
           </Button>
           <Grid container justify="flex-end">
-            <Grid item>
+            {isSignup ? <Grid item>
               <LinkBs to="/signin" className={classes.links}>
                 Already have an account? Sign in
               </LinkBs>
+            </Grid> : 
+              <Grid item>
+              <LinkBs to="/signup" className={classes.links}>
+                {"Don't have an account? Sign Up"}
+              </LinkBs>
             </Grid>
+            }
           </Grid>
         </form>
       </div>

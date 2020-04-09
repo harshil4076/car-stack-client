@@ -1,7 +1,7 @@
 import {SET_MYGARAGE} from '../actiontypes';
 
 const myadsList = {
-    list: []
+    list: {}
 } 
 
 export default (state = myadsList , action) => {

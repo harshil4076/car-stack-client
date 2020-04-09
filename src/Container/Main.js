@@ -1,12 +1,13 @@
 import React from 'react';
 import { Switch, withRouter, Route} from 'react-router-dom';
 import SearchBar from '../landingpage/searchBar/searchBar';
-import SignIn from '../signin/Signin';
-import SignUp from '../signin/SignUp';
+import Auth from '../Auth/Auth'
 import { connect } from 'react-redux'
 import { authUser } from '../Store/Action/auth';
 import { myGarage } from '../Store/Action/myGarage'
 import { addError, removeError } from "../Store/Action/errors";
+import { addNewAd } from '../Store/Action/newAd';
+
 import MyGarage from '../Components/MyGarage'
 const allMakes = [
     {
@@ -42,13 +43,13 @@ const Main = (props) => {
             <SearchBar {...props} allMakes={allMakes} MakesList={MakesList} radioItems={radioItems} yearList={year} LocationList={LocationList} />
         </Route>
         <Route exact path="/signin">
-           <SignIn onAuth={authUser} {...props}  errors={errors} removeError={removeError}   />
+           <Auth onAuth={authUser} {...props}  errors={errors} removeError={removeError}   />
            </Route>
         <Route exact path="/signup">
-            <SignUp onAuth={authUser} {...props} errors={errors} removeError={removeError}  />
+            <Auth onAuth={authUser} isSignup={true} {...props} errors={errors} removeError={removeError}  />
         </Route>
         <Route exact path="/mygarage">
-            <MyGarage {...props} doors={doors} fuelType={fuelType} transmission={transmission}  categoryList={categoryList} errors={errors} removeError={removeError} updateGarage={myGarage}
+            <MyGarage newAd={addNewAd} myGarage={myGarage} {...props} doors={doors} fuelType={fuelType} transmission={transmission}  categoryList={categoryList} errors={errors} removeError={removeError} updateGarage={myGarage}
             allMakes={allMakes} MakesList={MakesList} yearList={year} LocationList={LocationList}
             />
         </Route>
@@ -61,10 +62,11 @@ const mapStateToProps = (state) => {
         currentUser: state.currentUser,
         errors: state.errors,
         year: year,
-        myGarage: state.myGarage
+        myGarage: state.myGarage,
+        newAd: state.addNewAd
     }
 }
 export default withRouter(
-    connect(mapStateToProps, {authUser, removeError, myGarage})
+    connect(mapStateToProps, {authUser, removeError, myGarage, addNewAd})
     (Main)
     );

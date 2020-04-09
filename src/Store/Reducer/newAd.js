@@ -1,22 +1,14 @@
 import {ADD_NEW_AD} from '../actiontypes';
 
-const newAd = {
-    "year": "",
-    "make": "",
-    "model": "",
-    "category": "",
-    "user": ""
+const DEF_STATE = {
+    newAd: {}
 }
 
-export default (state=newAd, action) => {
+export default (state = DEF_STATE, action) => {
     switch(action.type){
         case ADD_NEW_AD: 
             return {
-                year: action.year,
-                make: action.make,
-                model: action.model,
-                category: action.category,
-                user: action.user
+                newAd: action.newAd
             };
         default: 
             return state;
