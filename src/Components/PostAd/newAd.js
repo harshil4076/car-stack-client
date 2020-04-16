@@ -9,23 +9,8 @@ import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider';
 import _ from 'lodash';
 import ImagesUpload from 'react-images-upload';
-import axios from 'axios';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
+import { uploadImages } from '../../Handlers/firebase';
 
-var firebaseConfig = {
-    apiKey: "AIzaSyCAh-qpq22gmZ__SmxI-VYeTdizSahVWJU",
-    authDomain: "photography-bd132.firebaseapp.com",
-    databaseURL: "https://photography-bd132.firebaseio.com",
-    projectId: "photography-bd132",
-    storageBucket: "photography-bd132.appspot.com",
-    messagingSenderId: "1004088657969",
-    appId: "1:1004088657969:web:27b8d2e6ad243c32fb2d10",
-    measurementId: "G-RRGVHZFERP"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-var storageRef = firebase.storage().ref();
 
 const useStyles = makeStyles(theme => ({
     textDesc: {
@@ -128,78 +113,32 @@ const NewAd = (props) => {
             }
         }
       }
-      const handlePost = () => {
-        let newAddata = newAd;
-        
-        addNewAd(newAddata)
+
+      const handleImageUpload = () => {
+          let urlList =[];
+          let uploadAction = picList.map(pic => {
+            return uploadImages(pic, newAd.user)
+                .then(data => {
+                urlList.push(data);
+                 setNewAd({...newAd, image:urlList})
+            })
+          });
+          return Promise.all([uploadAction]).then((result) => {
+            handlePost(); 
+          });  
+      }
+
+    const handlePost = () => {
+        addNewAd(newAd)
           .then(() => {
-            props.history.push("/myGarage")
+            return props.history.push("/myGarage")
           }).catch(() => {
             return
           })
-
     }
-    const handleUpload = (files) => {
-        uploadImages(files);
-        handlePost();
-    }
-    const uploadImages = (files) => {
-        
-        var imgUrl = [];
-      files.map(file => {
-var uploadTask = storageRef.child(`images/${currentUser.user.id}/` + file.name).put(file);
-
-// Listen for state changes, errors, and completion of the upload.
-uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-  function(snapshot) {
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-      case firebase.storage.TaskState.PAUSED: // or 'paused'
-        console.log('Upload is paused');
-        break;
-      case firebase.storage.TaskState.RUNNING: // or 'running'
-        console.log('Upload is running');
-        break;
-    }
-  }, function(error) {
-
-  // A full list of error codes is available at
-  // https://firebase.google.com/docs/storage/web/handle-errors
-  switch (error.code) {
-    case 'storage/unauthorized':
-      // User doesn't have permission to access the object
-      break;
-
-    case 'storage/canceled':
-      // User canceled the upload
-      break;
-
-    case 'storage/unknown':
-      // Unknown error occurred, inspect error.serverResponse
-      break;
-  }
-}, function() {
-  // Upload completed successfully, now we can get the download URL
-  uploadTask.snapshot.ref.getDownloadURL()
-    .then(function(downloadURL) {
-    console.log('File available at', downloadURL);
-    imgUrl.push(downloadURL)
-    setNewAd({...newAd, image:imgUrl })
-  })
-});
-       })
-
-
-    };
-
-
-    const [displayImages, setDisplayImages] = React.useState([])
+    const [picList, setPicList] = React.useState([])
     const onDrop = (picture) =>{
-        console.log(picture)
-        // setNewAd({...newAd, image:[picture]})
-        setDisplayImages(picture)
+        setPicList(picture)
     }
    
     useEffect(() => {
@@ -282,9 +221,18 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                         maxFileSize={5242880}
                         withPreview={true}
                         />
-                  <Button onClick={() => handleUpload(displayImages)} variant="contained" color="primary" disableElevation>
-                    Post Ad
-                </Button>  
+                            <Button onClick={()=> handleImageUpload()} variant="contained" color="primary" disableElevation>
+                                Upload Images
+                            </Button>  
+                </Grid>
+                <Grid item xs={12} sm={12}
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="center">
+                    <Button onClick={ ()=> handlePost()} variant="contained" color="primary" disableElevation>
+                        Post Ad
+                    </Button>
                 </Grid>
         </Grid>
         </form>
