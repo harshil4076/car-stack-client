@@ -1,13 +1,10 @@
 import {SET_MYGARAGE} from '../actiontypes';
 
-const myadsList = {
-    list: {}
-} 
 
-export default (state = myadsList , action) => {
+export default (state = [] , action) => {
     switch(action.type){
         case SET_MYGARAGE: 
-            return { list: action.data};
+            return [...action.list];
         default:
             return state;
     }

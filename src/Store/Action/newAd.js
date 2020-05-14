@@ -14,7 +14,6 @@ export function addNewAd(newAdData){
         return new Promise((resolve, reject) => {
             return apiCall("post", `/api/user/${newAdData.user}/ads/createnewad`, newAdData)
             .then(( addata ) => {
-                console.log(addata)
                 dispatch(SetNewAd(addata))
                 dispatch(removeError());
                 resolve();

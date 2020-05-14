@@ -17,52 +17,57 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 var storageRef = firebase.storage().ref();
 
-export const uploadImages =(file, userId) => {
-    return new Promise((resolve, reject) => {
-    var uploadTask = storageRef.child(`images/${userId}/` + file.name).put(file);
-    // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-         function(snapshot) {
-             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-             console.log('Upload is ' + progress + '% done');
-             switch (snapshot.state) {
-             case firebase.storage.TaskState.PAUSED: // or 'paused'
-                 console.log('Upload is paused');
-                 break;
-             case firebase.storage.TaskState.RUNNING: // or 'running'
-                 console.log('Upload is running');
-                 break;
-             }
-         }, 
-         function(error) {
-             // A full list of error codes is available at
-             // https://firebase.google.com/docs/storage/web/handle-errors
-             switch (error.code) {
-                 case 'storage/unauthorized':
-                 // User doesn't have permission to access the object
-                 break;
+export const uploadImages =(files, userId) => {
+    const promises = [];
+    let urlList=[];
+    files.forEach(file => {
 
-                 case 'storage/canceled':
-                 // User canceled the upload
-                 break;
+        const uploadTask = storageRef.child(`images/${userId}/` + file.name).put(file);
+            promises.push(uploadTask)
+        // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+                }
+            }, 
+            function(error) {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break;
 
-                 case 'storage/unknown':
-                 // Unknown error occurred, inspect error.serverResponse
-                 break;
-         }
-         }, function() {
-         // Upload completed successfully, now we can get the download URL
-             uploadTask.snapshot.ref.getDownloadURL()
-                 .then(function(downloadURL) {
-                 console.log('File available at',downloadURL);
-                    resolve(downloadURL);
+                    case 'storage/canceled':
+                    // User canceled the upload
+                    break;
 
-             }) 
-         });  
-    });
+                    case 'storage/unknown':
+                    // Unknown error occurred, inspect error.serverResponse
+                    break;
+            }
+            },  function() {
+            // Upload completed successfully, now we can get the download URL
+                uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
+                  urlList.push(downloadUrl); 
+                })
+            });            
+    })
+    //include all requests in single promise
+   return Promise.all(promises)
+        .then(() => {
+            // url List
+            return urlList;
+        })
+        .catch(err => console.log(err.code));
  }
 
- export const deleteImages = (url) => {
-    
- }
