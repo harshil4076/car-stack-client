@@ -29,7 +29,7 @@ function App() {
       <Provider store={store}>
         <Router>
           <Navbar />
-          <Routes />
+            <Routes />
           <AppFooter />
         </Router>
       </Provider>  

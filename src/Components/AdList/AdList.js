@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+//connect to redux store
 import { connect } from 'react-redux'
+//material ui components
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,8 +12,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Modal from '@material-ui/core/Modal';
-import NewAd from '../../view/NewAdPage/newAd'
 import Paper from '@material-ui/core/Paper';
+// modal 
+import NewAd from '../../view/NewAdPage/newAd'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;

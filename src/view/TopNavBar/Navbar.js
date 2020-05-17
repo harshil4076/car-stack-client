@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 // material ui components
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -83,9 +83,13 @@ function Navbar(props) {
     setAnchorEl(null)
   }
 
+  // handler on open drawer
+  const ondrawerOpen = () => {
+
+  }
+
 
   return (
-    <div className={classes.root}>
 
       <AppBar elevation={0} position="fixed" color="default" className={classes.appBar}>
         <Toolbar className={classes.contTool}>
@@ -113,6 +117,7 @@ function Navbar(props) {
             anchor="right"
             open={isDrawerOpen}
             onClose={closeDrawer}
+            onOpen={ondrawerOpen}
           >
             <div className={classes.drawer}>
            
@@ -128,15 +133,17 @@ function Navbar(props) {
       </SwipeableDrawer>
         </Toolbar>
       </AppBar>
-    </div>
   );
 }
 
-// Mapping current Redux State to props
-function mapStateToProps(state){
-  return {
-    currentUser: state.currentUser
-  }
-}
+// // Mapping current Redux State to props
+// function mapStateToProps(state){
+//   return {
+//     currentUser: state.currentUser
+//   }
+// }
 
-export default connect(mapStateToProps, { logout } )(Navbar)
+// export with Redux store
+// export default connect(mapStateToProps, { logout } )(Navbar);
+
+export default Navbar;
