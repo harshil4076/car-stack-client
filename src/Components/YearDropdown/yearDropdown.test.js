@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import YearDropdown from './yearDropdown';
-import { jssPreset } from '@material-ui/core';
 
 describe('It renders <year',() => {
    const yearProps = {
