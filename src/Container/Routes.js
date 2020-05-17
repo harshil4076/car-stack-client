@@ -7,8 +7,9 @@ import { authUser } from '../Store/Action/auth';
 import { myGarage } from '../Store/Action/myGarage'
 import { addError, removeError } from "../Store/Action/errors";
 import { addNewAd } from '../Store/Action/newAd';
+import MainGarage from '../view/MyGarage/MainGarage/mainGarage'
 
-// import MyGarage from '../Components/MyGarage'
+// List of all Makes
 const allMakes = [
     {
         make: "Honda",
@@ -19,12 +20,17 @@ const allMakes = [
         model: ["corolla", "rav4", "prius"]
     }
   ];
+
   const year = ["2015", "2016", "2017", "2018", "2019", "2020"];
   const LocationList = ["Toronto", "Mississauga", "Hamilton", "Oakville", "Burlington"]
+
+  //function to extract models from specific make
   const MakesList =[];
   allMakes.map(i => {
    return MakesList.push(i.make);
   });
+
+
   const radioItems = [
     "New",
     "Used",
@@ -34,25 +40,27 @@ const allMakes = [
   const transmission = ["auto", "manual"]
   const fuelType = ["gasoline", "diesel", "propane", "electric"]
   const doors = ["2", "3", "4", "5", "6", "7"]
+
 const Routes = (props) => {
   const {addError, removeError,errors} = props
     return (
        
       <Switch>
-        <Route exact path="/">
+          {/* Landing Page Link */}
+        <Route exact path="/"> 
             <LandingPage {...props} allMakes={allMakes} MakesList={MakesList} radioItems={radioItems} yearList={year} LocationList={LocationList} />
         </Route>
+        {/* Auth Page Link */}
         <Route exact path="/signin">
            <Auth onAuth={authUser} {...props}  errors={errors} removeError={removeError}   />
            </Route>
         <Route exact path="/signup">
             <Auth onAuth={authUser} isSignup={true} {...props} errors={errors} removeError={removeError}  />
         </Route>
-        {/* <Route exact path="/mygarage">
-            <MyGarage newAd={addNewAd} myGarage={myGarage} {...props} doors={doors} fuelType={fuelType} transmission={transmission}  categoryList={categoryList} errors={errors} removeError={removeError} updateGarage={myGarage}
-            allMakes={allMakes} MakesList={MakesList} yearList={year} LocationList={LocationList}
-            />
-        </Route> */}
+        {/* My garage page Link  */}
+        <Route exact path="/mygarage">
+            <MainGarage />
+        </Route>
       </Switch>
 
     )

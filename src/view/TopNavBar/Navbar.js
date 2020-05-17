@@ -1,6 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
+// material ui components
+import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,10 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+//react router
 import { Link } from 'react-router-dom';
+
+//action redux 
 import {logout} from '../../Store/Action/auth';
-import CustomDropdown from '../../Components/CustomDropdown/CustomDropdown'
-import profile from '../../assets/profile.jpg'
+
 const useStyles = makeStyles(theme => ({
   contTool:{
     display: "flex",
@@ -40,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   userLinks:{
       flexGrow: 1,
       display: "flex",
-      justifyContent: "space-evenly",
+      justifyContent: "flex-end",
       [theme.breakpoints.down('sm')]: {
         display: "none"
     },
@@ -61,96 +64,65 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// Main navbar component
 function Navbar(props) {
+  //material ui makestyles 
   const classes = useStyles();
+
+  //anchor switch for drawer open and close
   const [anchorEl, setAnchorEl] = React.useState(null);
+  // Turn anchor on and off
   const isDrawerOpen = Boolean(anchorEl)
-  const { currentUser } = props;
+
+  //Handler to open side drawer
   const openDrawer = (event) => {
     setAnchorEl(event.currentTarget);
   }
-
+  // handler to close side drawre
   const closeDrawer = () => {
     setAnchorEl(null)
   }
-  const onDrawerOpen = () => {
 
-  }
-  const logOut = () => {
-   props.logout()
-  }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.appBar}>
+
+      <AppBar elevation={0} position="fixed" color="default" className={classes.appBar}>
         <Toolbar className={classes.contTool}>
+          {/* react router dom link */}
             <Link to="/" className={classes.mainLink}>
               <Typography variant="h6" className={classes.title}>
                 CARSTACK
               </Typography>
             </Link>
           <div className={classes.userLinks}>
-            <Button color="inherit">Sell My Car</Button>
-            <Button color="inherit">Shop Cars</Button>
-            <CustomDropdown
-                    left
-                    caret={false}
-                    hoverColor="black"
-                    dropdownHeader="Account"
-                    buttonText={
-                      <img
-                        src={profile}
-                        className={classes.img}
-                        alt="profile"
-                      />
-                    }
-                    buttonProps={{
-                      className:
-                        classes.navLink + " " + classes.imageDropdownButton,
-                      color: "transparent"
-                    }}
-                    dropdownList={[
-                      "My Garage",
-                      "Sign Out",
-                      "Sign In"
-                    ]}
-              />
+           <Link to="/myGarage" className={classes.mainLink} >
+              <Button color="inherit">My Garage</Button>
+           </Link>
+           <Link to="/signin" className={classes.mainLink} >
+            <Button color="inherit">Sign In</Button>
+            </Link>
+            <Button color="inherit">Sign Out</Button>
           </div>
+          {/* Hamburger menu Link Icon */}
           <IconButton onClick={openDrawer} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon  />
           </IconButton>
+          {/* Side drawer component */}
           <SwipeableDrawer
             anchor="right"
             open={isDrawerOpen}
             onClose={closeDrawer}
-            onOpen={onDrawerOpen}
           >
             <div className={classes.drawer}>
-            <Button color="inherit">Sell My Car</Button>
-            <Button color="inherit">Shop Cars</Button>
-            <CustomDropdown
-                    left
-                    caret={false}
-                    hoverColor="black"
-                    dropdownHeader="Account"
-                    buttonText={
-                      <img
-                        src={profile}
-                        className={classes.img}
-                        alt="profile"
-                      />
-                    }
-                    buttonProps={{
-                      className:
-                        classes.navLink + " " + classes.imageDropdownButton,
-                      color: "transparent"
-                    }}
-                    dropdownList={[
-                      "My Garage",
-                      "Sign Out",
-                      "Sign In"
-                    ]}
-              />
+           
+            <Link to="/myGarage" className={classes.mainLink} >
+              <Button color="inherit">My Garage</Button>
+           </Link>
+           <Link to="/signin" className={classes.mainLink} >
+            <Button color="inherit">Sign In</Button>
+            </Link>
+            <Button color="inherit">Sign Out</Button>
             
             </div>
       </SwipeableDrawer>
@@ -160,6 +132,7 @@ function Navbar(props) {
   );
 }
 
+// Mapping current Redux State to props
 function mapStateToProps(state){
   return {
     currentUser: state.currentUser

@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { configureStore } from '../Store';
 import Navbar from '../view/TopNavBar/Navbar';
 import Routes from './Routes'
-import Footer from '../view/Footer/footer'
+import AppFooter from '../Components/Footer/AppFooter'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './App.css';
@@ -28,11 +28,10 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <Router>
-          <CssBaseline />
           <Navbar />
           <Routes />
+          <AppFooter />
         </Router>
-        <Footer className="footer" />
       </Provider>  
     </div>
   );
