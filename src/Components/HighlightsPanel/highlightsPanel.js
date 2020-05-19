@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
+
 //react router
 import { matchPath } from "react-router";
 import { Link } from 'react-router-dom'
@@ -34,7 +35,9 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
-      margin: "2vh"
+      maxWidth: 930,
+      marginTop: "2vh",
+      maxHeight: "100%",
     },
     cover: {
         width: 151,
@@ -57,49 +60,22 @@ const useStyles = makeStyles((theme) => ({
           backgroundColor: "white"
       }
 }))
-const AdList = (props) => {
-    const { item, manageDelete, manageEdit} = props
+const HighlightsPanel = (props) => {
+    const { } = props
     const classes = useStyles();
-    const theme = useTheme();
 
-
-    const handleDelete = (id) => {
-        manageDelete(id)
-    }
-    const handleEdit = (id) => {
-      manageEdit(id);
-    }
     return (
         <>
         <Card className={classes.root}>
-            <CardMedia image={item.image[0]} className={classes.cover} />
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                 <Typography component="h5" variant="h5">
-                <span>{item.year} </span><span>{item.make} </span><span>{item.model}</span>  
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                   $ {item.price}
                 </Typography>
                 </CardContent>
                 <div className={classes.controls}>
-                      <IconButton onClick={() => handleDelete(item._id)}>
-                          <DeleteIcon />
-                      </IconButton >
-                    <Link to = {{
-                      pathname: `/editad/${item.id}`
-                    }}>
-                        <IconButton onClick={() => {handleEdit(item.id)}}>
-                            <EditIcon />
-                        </IconButton>
-                    </Link>
-                    <Link to = {{
-                      pathname: `/viewad/${item.id}`
-                    }}>
-                        <IconButton>
-                            <VisibilityIcon />
-                        </IconButton>
-                    </Link>
+
                 </div>
             </div>
         </Card>
@@ -108,4 +84,4 @@ const AdList = (props) => {
 }
 
 
-export default AdList;
+export default HighlightsPanel;

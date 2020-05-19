@@ -1,21 +1,59 @@
 import React, { useState, useEffect } from 'react';
+//material Ui components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider';
+// custom components
 import YearDropdown from '../../../Components/YearDropdown/yearDropdown';
 import SearchDropDown from '../../../Components/SearchDropdown/searchDropdown';
-import SearchModel from '../../../Components/SearchModelDropdown/searchModel'
+import SearchModel from '../../../Components/SearchModelDropdown/searchModel';
 import TextInput from '../../../Components/TextInput/textInput';
-import Button from '@material-ui/core/Button'
 import _ from 'lodash';
 import ImagesUpload from 'react-images-upload';
 
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        paddingTop: "15vh"
+    },
+    carDetailsSection: {
+        paddingBottom: "5vh"
+    },
+    priceSection:{
+        paddingBottom:"5vh"
+    },
+    textDescription:{
+        paddingBottom: "5vh"
+    },
+    mainImageGrid: {
+        paddingBottom: "5vh"
+    },
+    uploadImagesButtom:{
+        paddingTop: "2vh"
+    },
+    postAdButtonGrid:{
+        margin: "4vh",
+        boxShadow: "2px 2px 3px 0 rgba(0, 0, 0, 0.05)",
+        borderRadius: "10px"
+    },
+    postAdButton:{
+        margin: "4vh",
+    }
 }))
 
 const NewAd = (props) => {
-    const {yearList, MakesList,allMakes, categoryList,
-             transmission, doors, fuelType, currentUser, addNewAd, handleNav, item} = props
+    const {
+            yearList, 
+            MakesList,
+            allMakes, 
+            categoryList,
+            transmission, 
+            doors, 
+            fuelType, 
+            currentUser, 
+            item
+            } = props
     const classes = useStyles();
     const [newAd, setNewAd] = useState({
         "make": "",
@@ -29,7 +67,7 @@ const NewAd = (props) => {
         "engine": "",
         "color": "",
         "price": "",
-        "user": currentUser.user.id,
+        "user": currentUser? currentUser.user.id: null,
         "description":"",
         "modelList": "",
         "image": []
@@ -101,68 +139,75 @@ const NewAd = (props) => {
         <Grid   container
                 direction="row"
                 justify="center"
-                alignItems="center">
-            <Grid item xs={12} sm={12}
-            container
-            direction="row"
-            justify="space-evenly"
-            alignItems="center">
-                <YearDropdown item={item?item.year: null} widthInput={true}  yearList={yearList} getYearSelection={getYearSelection} />
-                <SearchDropDown item={item?item.make: null} widthInput={true} labelTitle="All Makes" MakesList={MakesList} getMakeSelection={getMakeSelection}  />
-            </Grid>
-            <Grid item xs={12} sm={12}
-            container
-            direction="row"
-            justify="space-evenly"
-            alignItems="center">
-                <SearchModel item={item?item.model: null} widthInput={true} ModelList={newAd.modelList} getModelSelection={getModelSelection} />
-                <SearchDropDown item={item?item.category: null} widthInput={true} labelTitle={"Category"} MakesList={categoryList} getMakeSelection={getCategorySelection}  />
-            </Grid>
-            <Grid item xs={12} sm={12}
+                alignItems="center"
+                className={classes.root}>
+            <Grid className={classes.carDetailsSection}>
+                <Grid item xs={12} sm={12}
                 container
                 direction="row"
                 justify="space-evenly"
                 alignItems="center">
-                <SearchDropDown item={item?item.fueltype: null} widthInput={true} labelTitle={"Fuel Type"} MakesList={fuelType} getMakeSelection={getFuelType}  />
-                <SearchDropDown item={item?item.transmission: null} widthInput={true} labelTitle={"Transmission"} MakesList={transmission} getMakeSelection={getTransmission}  />
-            </Grid>
-            <Grid item xs={12} sm={12}
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center">
-                    <SearchDropDown item={item?item.doors: null} widthInput={true} labelTitle={"Doors"} MakesList={doors} getMakeSelection={getDoors}  />
-                    <TextInput item={item? item.milage : null} isFullWidth={true} labelText="Milage" getTextValue={getMilage} />
+                    <YearDropdown item={item?item.year: null} widthInput={true}  yearList={yearList} getYearSelection={getYearSelection} />
+                    <SearchDropDown item={item?item.make: null} widthInput={true} labelTitle="All Makes" MakesList={MakesList} getMakeSelection={getMakeSelection}  />
                 </Grid>
-            <Grid item xs={12} sm={12}
+                <Grid item xs={12} sm={12}
                 container
                 direction="row"
                 justify="space-evenly"
                 alignItems="center">
-                <TextInput item={item? item.engine: null} isFullWidth={true} labelText="Engine" getTextValue={getEngineType} />
-                <TextInput item={item? item.color: null} isFullWidth={true} labelText="Color" getTextValue={getColorType} />
+                    <SearchModel item={item?item.model: null} widthInput={true} ModelList={newAd.modelList} getModelSelection={getModelSelection} />
+                    <SearchDropDown item={item?item.category: null} widthInput={true} labelTitle={"Category"} MakesList={categoryList} getMakeSelection={getCategorySelection}  />
+                </Grid>
+                <Grid item xs={12} sm={12}
+                    container
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="center">
+                    <SearchDropDown item={item?item.fueltype: null} widthInput={true} labelTitle={"Fuel Type"} MakesList={fuelType} getMakeSelection={getFuelType}  />
+                    <SearchDropDown item={item?item.transmission: null} widthInput={true} labelTitle={"Transmission"} MakesList={transmission} getMakeSelection={getTransmission}  />
+                </Grid>
+                <Grid item xs={12} sm={12}
+                    container
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="center">
+                        <SearchDropDown item={item?item.doors: null} widthInput={true} labelTitle={"Doors"} MakesList={doors} getMakeSelection={getDoors}  />
+                        <TextInput item={item? item.milage : null} isFullWidth={true} labelText="Milage" getTextValue={getMilage} />
+                    </Grid>
+                <Grid item xs={12} sm={12}
+                    container
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="center">
+                    <TextInput item={item? item.engine: null} isFullWidth={true} labelText="Engine" getTextValue={getEngineType} />
+                    <TextInput item={item? item.color: null} isFullWidth={true} labelText="Color" getTextValue={getColorType} />
+                </Grid>           
             </Grid>
             <Grid item xs={12} sm={12}
                 container
                 direction="row"
                 justify="space-evenly"
-                alignItems="center">
-                <TextInput item={item? item.price: null} isFullWidth={true} labelText="$" getTextValue={getPrice} />
-                </Grid>
+                alignItems="flex-start"
+                className={classes.priceSection}
+                >
+                <TextInput item={item? item.price: null} isFullWidth={true} labelText="Price in CAD $" getTextValue={getPrice} />
+            </Grid>
+
             <Grid item xs={12} sm={6}
                 container
                 direction="row"
                 justify="center"
                 alignItems="center"
-                className={classes.textDesc}>
-                <TextInput item={item? item.description: null} labelText="Description" getTextValue={getDescription} isDescription={true} />
+                className={classes.textDescription}>
+                <TextInput item={item? item.description: null} labelText="Write a short Description" getTextValue={getDescription} isDescription={true} />
             </Grid>
             <Grid item xs={12} sm={12}
                 container
                 direction="row"
                 justify="space-evenly"
-                alignItems="center">
-                    <Grid item sm={6}>
+                alignItems="center"
+                className={classes.mainImageGrid}
+                >
                     <ImagesUpload 
                         withIcon={true}
                         buttonText='Choose images'
@@ -173,13 +218,18 @@ const NewAd = (props) => {
                         maxFileSize={5242880}
                         withPreview={true}
                         />
-                    </Grid>
                     <Grid item sm={6}
-                    container
-                    direction="row"
-                    justify="space-evenly"
-                    alignItems="center">
-                        <Button onClick={()=> handleImageUpload()} variant="contained" color="primary" disableElevation>
+                        container
+                        direction="row"
+                        justify="space-evenly"
+                        alignItems="center"
+                        className={classes.uploadImagesButtom}
+                        >
+                        <Button 
+                            size="small" 
+                            onClick={()=> handleImageUpload()} 
+                            variant="outlined" 
+                            color="primary" >
                             Upload Images
                         </Button>  
                     </Grid> 
@@ -188,8 +238,14 @@ const NewAd = (props) => {
                 container
                 direction="row"
                 justify="space-evenly"
-                alignItems="center">
-                    <Button onClick={ ()=> handlePost()} variant="contained" color="primary" disableElevation>
+                alignItems="center"
+                className={classes.postAdButtonGrid}>
+                    <Button 
+                        className={classes.postAdButton} 
+                        size="large" 
+                        onClick={ ()=> handlePost()} 
+                        variant="outlined" 
+                        color="secondary">
                         {item? "Update Ad" : "Post Ad"}
                     </Button>
                 </Grid>

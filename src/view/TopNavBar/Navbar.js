@@ -100,10 +100,13 @@ function Navbar(props) {
               </Typography>
             </Link>
           <div className={classes.userLinks}>
-           <Link to="/myGarage" className={classes.mainLink} >
-              <Button color="inherit">My Garage</Button>
+           <Link to="/myads" className={classes.mainLink} >
+              <Button color="inherit">My Ads</Button>
            </Link>
-           <Link to="/signin" className={classes.mainLink} >
+           <Link to="/newad" className={classes.mainLink} >
+            <Button color="inherit">Post Ad</Button>
+            </Link>
+            <Link to="/signin" className={classes.mainLink} >
             <Button color="inherit">Sign In</Button>
             </Link>
             <Button color="inherit">Sign Out</Button>
@@ -121,9 +124,12 @@ function Navbar(props) {
           >
             <div className={classes.drawer}>
            
-            <Link to="/myGarage" className={classes.mainLink} >
-              <Button color="inherit">My Garage</Button>
+            <Link to="/myads" className={classes.mainLink} >
+              <Button color="inherit">My Ads</Button>
            </Link>
+           <Link to="/newad" className={classes.mainLink} >
+            <Button color="inherit">Post Ad</Button>
+            </Link>
            <Link to="/signin" className={classes.mainLink} >
             <Button color="inherit">Sign In</Button>
             </Link>

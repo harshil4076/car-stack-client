@@ -59,7 +59,9 @@ export default function SearchModel (props){
                                     </MenuItem>
                                 ))
                                 :
-                                    null
+                                <MenuItem key={item} value={item}>
+                                    {model.model}
+                                </MenuItem>
                             }
                     </Select>
                 </FormControl>

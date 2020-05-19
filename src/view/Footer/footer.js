@@ -44,7 +44,7 @@ export default function Footer(props) {
             className={aClasses}
             target="_blank"
           >
-            Harshil Patel
+            www.carstack.ca
           </a>{" "}
           for a better web.
         </div>

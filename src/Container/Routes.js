@@ -7,8 +7,9 @@ import { authUser } from '../Store/Action/auth';
 import { myGarage } from '../Store/Action/myGarage'
 import { addError, removeError } from "../Store/Action/errors";
 import { addNewAd } from '../Store/Action/newAd';
-import MainGarage from '../view/MyGarage/MainGarage/mainGarage'
-
+import NewAd from '../view/MyGarage/NewAdPage/newAd'
+import ViewUserAllAds from '../view/MyGarage/ViewUsersAllAds/viewUserAllAds';
+import ViewUserSingleAd from '../view/MyGarage/ViewUserSingleAd/viewUserSingleAd'
 // List of all Makes
 const allMakes = [
     {
@@ -40,27 +41,132 @@ const allMakes = [
   const transmission = ["auto", "manual"]
   const fuelType = ["gasoline", "diesel", "propane", "electric"]
   const doors = ["2", "3", "4", "5", "6", "7"]
+  const oneCarItem = [{
+        "id": "5547",
+        "make": "Honda",
+        "model": "civic",
+        "year": 2015,
+        "category": "coupe",
+        "milage": 1252222,
+        "transmission": "auto",
+        "fueltype": "gasoline",
+        "doors": 5,
+        "engine": "4cl",
+        "color": "red",
+        "price": 1250,
+        "description":"It is amazing car",
+        "image": ["https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",]
+  },
+  {
+    "id": "5548",
+    "make": "Honda",
+    "model": "civic",
+    "year": 2015,
+    "category": "coupe",
+    "milage": 1252222,
+    "transmission": "auto",
+    "fueltype": "gasoline",
+    "doors": 5,
+    "engine": "4cl",
+    "color": "red",
+    "price": 1250,
+    "description":"It is amazing car",
+    "image": ["https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",]
+}
+]
+
+const img = [
+  "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+  "https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+  "https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+  "https://images.unsplash.com/photo-1504215680853-026ed2a45def?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+  "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+]
 
 const Routes = (props) => {
-  const {addError, removeError,errors} = props
+  const {addError, removeError,errors} = props;
+  const [editItem, seteditItem] = React.useState("")
+  const handleIdsearch = (id) =>{
+    handleItemsearch(id)
+  }
+  const handleItemsearch = (searchId) => {
+    oneCarItem.forEach(item => {
+      if(item.id = searchId){
+        console.log(item)
+        return seteditItem(item)
+      }
+    })
+  }
     return (
        
       <Switch>
           {/* Landing Page Link */}
         <Route exact path="/"> 
-            <LandingPage {...props} allMakes={allMakes} MakesList={MakesList} radioItems={radioItems} yearList={year} LocationList={LocationList} />
+            <LandingPage 
+              {...props} 
+              allMakes={allMakes}
+              MakesList={MakesList} 
+              radioItems={radioItems} 
+              yearList={year} 
+              LocationList={LocationList} 
+            />
         </Route>
         {/* Auth Page Link */}
         <Route exact path="/signin">
-           <Auth onAuth={authUser} {...props}  errors={errors} removeError={removeError}   />
-           </Route>
+           <Auth 
+              onAuth={authUser} 
+              {...props}  
+              errors={errors} 
+              removeError={removeError}   
+            />
+        </Route>
+        {/* Auth Page Link */}
         <Route exact path="/signup">
-            <Auth onAuth={authUser} isSignup={true} {...props} errors={errors} removeError={removeError}  />
+            <Auth 
+              onAuth={authUser} 
+              isSignup={true} 
+              {...props} 
+              errors={errors} 
+              removeError={removeError}  
+            />
         </Route>
-        {/* My garage page Link  */}
-        <Route exact path="/mygarage">
-            <MainGarage />
+        {/* New ad Link  */}
+        <Route exact path="/newad">
+          <NewAd 
+            yearList={year}
+            MakesList={MakesList} 
+            allMakes={allMakes}
+            categoryList={categoryList}
+            transmission={transmission} 
+            doors={doors} 
+            fuelType={fuelType}
+          />
         </Route>
+        {/* Route to users all Ads */}
+        <Route exact path="/myads">
+          <ViewUserAllAds SetGarage={oneCarItem} handleIdsearch={handleIdsearch}/>
+        </Route>
+        <Route exact path="/editad/:id" 
+          render={(routeProps) => (
+                <NewAd 
+                  {...routeProps} 
+                  item={editItem}  
+                  yearList={year}
+                  MakesList={MakesList} 
+                  allMakes={allMakes}
+                  categoryList={categoryList}
+                  transmission={transmission} 
+                  doors={doors} 
+                  fuelType={fuelType}
+                  />
+          )}
+        />
+        <Route exact path= "/viewad/:id"
+          render= {(props)=> (
+            <ViewUserSingleAd {...props} carItem={oneCarItem[0]} img={img} />
+          )}
+        />
+     
       </Switch>
 
     )

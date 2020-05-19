@@ -53,11 +53,16 @@ export default function SearchDropDown (props){
                         MenuProps={MenuProps}
                         varient="outlined"
                         >
-                        {MakesList.map(item =>(
-                            <MenuItem key={item} value={item}>
-                            {item}
-                          </MenuItem>
-                        ))}
+                        {
+                          MakesList? 
+                          MakesList.map(item =>(
+                              <MenuItem key={item} value={item}>
+                              {item}
+                            </MenuItem>
+                        ))
+                         :
+                         null   
+                      }
                     </Select>
                 </FormControl>
     )
