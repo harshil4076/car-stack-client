@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   drawer:{
-    width: "50vh",
+    // min-width: "30vh",
     display: "flex",
     flexDirection: "column"
   },
@@ -125,15 +125,15 @@ function Navbar(props) {
             <div className={classes.drawer}>
            
             <Link to="/myads" className={classes.mainLink} >
-              <Button color="inherit">My Ads</Button>
+              <Button color="inherit" onClick={() => closeDrawer()}>My Ads</Button>
            </Link>
            <Link to="/newad" className={classes.mainLink} >
-            <Button color="inherit">Post Ad</Button>
+            <Button color="inherit" onClick={() => closeDrawer()}>Post Ad</Button>
             </Link>
            <Link to="/signin" className={classes.mainLink} >
-            <Button color="inherit">Sign In</Button>
+            <Button color="inherit" onClick={() => closeDrawer()}>Sign In</Button>
             </Link>
-            <Button color="inherit">Sign Out</Button>
+            <Button color="inherit" onClick={() => closeDrawer()}>Sign Out</Button>
             
             </div>
       </SwipeableDrawer>

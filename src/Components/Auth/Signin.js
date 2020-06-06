@@ -28,11 +28,18 @@ function Copyright() {
 }
 
 const useStyles = makeStyles(theme => ({
+  root:{
+    marginBottom: "150px"
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: "100%",
+    minHeight: "100vh",
+    marginBottom: "150px"
+
   },
   avatar: {
     margin: theme.spacing(1),
@@ -41,6 +48,7 @@ const useStyles = makeStyles(theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    marginBottom: "150px"
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -74,7 +82,7 @@ export default function SignIn(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md" className={classes.root}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

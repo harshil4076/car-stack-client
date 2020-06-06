@@ -33,8 +33,11 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      margin: "2vh"
+      display: 'flex', 
+      margin: "2vh",
+      justifyContent: "space-between",
+    maxWidth: "100vh",
+
     },
     cover: {
         width: 151,
@@ -42,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
       details: {
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: "space-evenly"
+
       },
       content: {
         flex: '1 0 auto',
@@ -75,12 +80,12 @@ const AdList = (props) => {
             <CardMedia image={item.image[0]} className={classes.cover} />
             <div className={classes.details}>
                 <CardContent className={classes.content}>
-                <Typography component="h5" variant="h5">
-                <span>{item.year} </span><span>{item.make} </span><span>{item.model}</span>  
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                   $ {item.price}
-                </Typography>
+                    <Typography component="h5" variant="h5">
+                    <span>{item.year} </span><span>{item.make} </span><span>{item.model}</span>  
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      $ {item.price}
+                    </Typography>
                 </CardContent>
                 <div className={classes.controls}>
                       <IconButton onClick={() => handleDelete(item._id)}>

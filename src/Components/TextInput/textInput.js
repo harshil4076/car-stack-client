@@ -7,10 +7,7 @@ import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(theme => ({
     textBox:{
-        minWidth: props =>
-            //to check if we need to render full width or not
-            props.isFullWidth || props.isDescription ?
-            400 : 400
+        minWidth: 200,
     }
 }))
 const TextInput = (props) => {
@@ -34,6 +31,7 @@ const TextInput = (props) => {
     }
     return (
         <TextField 
+            fullWidth={isDescription? true : false}
             multiline={isDescription? true : false} 
             rows={isDescription? "4" : "0"} 
             onChange={handleChange} 

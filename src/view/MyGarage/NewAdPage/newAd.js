@@ -15,7 +15,9 @@ import ImagesUpload from 'react-images-upload';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        paddingTop: "15vh"
+        paddingTop: "15vh",
+        paddingRight: "5vh",
+        paddingLeft : "5vh"
     },
     carDetailsSection: {
         paddingBottom: "5vh"
@@ -24,7 +26,10 @@ const useStyles = makeStyles(theme => ({
         paddingBottom:"5vh"
     },
     textDescription:{
-        paddingBottom: "5vh"
+        paddingBottom: "5vh",
+       [theme.breakpoints.up('sm')]:{
+           width: "100%"
+       }
     },
     mainImageGrid: {
         paddingBottom: "5vh"

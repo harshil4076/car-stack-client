@@ -1,5 +1,6 @@
 import React from 'react';
-import AdList from '../../../Components/AdList/AdList'
+import AdList from '../../../Components/AdList/AdList';
+import Grid from '@material-ui/core/Grid'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -8,7 +9,10 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "30vh",
     paddingRight: "30vh",
     minHeight: "100vh",
-    maxWidth: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+
     [theme.breakpoints.down("md")]:{
       paddingTop: "20vh",
       paddingLeft: "3vh",
@@ -26,6 +30,7 @@ export default function ViewUserAllAds (props){
     handleIdsearch(id)
   }
 return (
+  <Grid item xs={12}>
     <div className={classes.root}>
         { 
           SetGarage.map((item, i) => (
@@ -33,5 +38,6 @@ return (
           ))
         }
     </div>
+    </Grid>
 )
 }

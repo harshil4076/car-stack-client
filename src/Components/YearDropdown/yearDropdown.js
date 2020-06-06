@@ -9,8 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
     formControl: {
-        minWidth: props => 
-            props.widthInput? 400: 200,
+        minWidth: 200,
+        maxWidth: 400,
         backgroundColor: "white",
         borderRadius: "2px",
     },

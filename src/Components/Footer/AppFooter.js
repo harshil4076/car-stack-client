@@ -21,12 +21,12 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    justifyContent: "center",
     backgroundColor: theme.palette.text.primary,
   },
   container: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(8),
-    display: 'flex',
   },
   iconsWrapper: {
     height: 120,
@@ -88,21 +88,9 @@ export default function AppFooter() {
   return (
     <Typography component="footer" className={classes.root}>
       <Container className={classes.container}>
-        <Grid container spacing={5}>
-          <Grid item xs={6} sm={4} md={3}>
-            <Grid
-              container
-              direction="column"
-              justify="flex-end"
-              className={classes.iconsWrapper}
-              spacing={2}
-            >
               <Grid item className={classes.copyright}>
                 <Copyright />
               </Grid>
-            </Grid>
-          </Grid>
-          </Grid>
       </Container>
     </Typography>
   );

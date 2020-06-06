@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import YearDropdown from './yearDropdown';
 
-describe('It renders <year',() => {
+describe('It renders year',() => {
    const yearProps = {
     yearList: [2011,2012,2011],
     getYearSelection: jest.fn(),
