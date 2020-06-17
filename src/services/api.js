@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-let url ="http://localhost:3001"
+let url ="https://radiant-cliffs-13120.herokuapp.com";
+
 export function setTokenHeader(token){
     if(token){
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

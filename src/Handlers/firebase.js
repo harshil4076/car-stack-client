@@ -16,6 +16,7 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 var storageRef = firebase.storage().ref();
 
+//upload images to firebase storage returns list of urls.
 export const uploadImages =(files, userId) => {
     const promises = [];
     let urlList=[];
@@ -70,3 +71,12 @@ export const uploadImages =(files, userId) => {
         .catch(err => console.log(err.code));
  }
 
+// save those urls in database
+// display images into edit page.
+// allow the user to replace the images to a new set of images
+//                        or
+// display images into upload images widget
+// user can add, delete and replace one or multiple images
+// user once the user clicks uplod it first uploades and deletes the unwanted images and returns the new url.
+// that list of url is saved in the database.
+// to edit ads we need to retrive storage path from the url
