@@ -1,86 +1,73 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
-import Typography from './Typography';
-import TextField from './TextField';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+import Typography from "./Typography";
 
 function Copyright() {
   return (
     <React.Fragment>
-      {'© '}
+      {"© "}
       <Link color="inherit" href="">
         www.carstack.ca
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
     </React.Fragment>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex",
     justifyContent: "center",
-    backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.text.primary
   },
   container: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
+    marginBottom: theme.spacing(8)
   },
   iconsWrapper: {
-    height: 120,
+    height: 120
   },
   icons: {
-    display: 'flex',
+    display: "flex",
     color: "white"
   },
   icon: {
     width: 48,
     height: 48,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: theme.palette.common.white,
     marginRight: theme.spacing(1),
-    '&:hover': {
-      backgroundColor: theme.palette.common.white,
-    },
+    "&:hover": {
+      backgroundColor: theme.palette.common.white
+    }
   },
   list: {
     margin: 0,
-    listStyle: 'none',
-    padding: 0,
+    listStyle: "none",
+    padding: 0
   },
   listItem: {
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
     color: "white",
     textDecoration: "none"
-
   },
   language: {
     marginTop: theme.spacing(1),
-    width: 150,
+    width: 150
   },
   item: {
-      color: "white"
+    color: "white"
   },
-  copyright:{
+  copyright: {
     color: "white"
   }
 }));
-
-const LANGUAGES = [
-  {
-    code: 'en-US',
-    name: 'English',
-  },
-  {
-    code: 'fr-FR',
-    name: 'Français',
-  },
-];
 
 export default function AppFooter() {
   const classes = useStyles();
@@ -88,9 +75,9 @@ export default function AppFooter() {
   return (
     <Typography component="footer" className={classes.root}>
       <Container className={classes.container}>
-              <Grid item className={classes.copyright}>
-                <Copyright />
-              </Grid>
+        <Grid item className={classes.copyright}>
+          <Copyright />
+        </Grid>
       </Container>
     </Typography>
   );
