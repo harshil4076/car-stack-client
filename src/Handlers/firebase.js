@@ -1,6 +1,5 @@
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
-import axios from 'axios';
 
 
 var firebaseConfig = {
