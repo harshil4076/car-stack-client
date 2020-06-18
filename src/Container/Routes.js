@@ -28,44 +28,7 @@ MAKES.map(i => {
   return MakesList.push(i.make);
 });
 
-const oneCarItem = [
-  {
-    id: "5547",
-    make: "Honda",
-    model: "civic",
-    year: 2015,
-    category: "coupe",
-    milage: 1252222,
-    transmission: "auto",
-    fueltype: "gasoline",
-    doors: 5,
-    engine: "4cl",
-    color: "red",
-    price: 1250,
-    description: "It is amazing car",
-    image: [
-      "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-    ]
-  },
-  {
-    id: "5548",
-    make: "Honda",
-    model: "civic",
-    year: 2015,
-    category: "coupe",
-    milage: 1252222,
-    transmission: "auto",
-    fueltype: "gasoline",
-    doors: 5,
-    engine: "4cl",
-    color: "red",
-    price: 1250,
-    description: "It is amazing car",
-    image: [
-      "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-    ]
-  }
-];
+
 
 const img = [
   "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider';
 // custom components
 import YearDropdown from '../../../Components/YearDropdown/yearDropdown';
 import SearchDropDown from '../../../Components/SearchDropdown/searchDropdown';
@@ -11,6 +10,7 @@ import SearchModel from '../../../Components/SearchModelDropdown/searchModel';
 import TextInput from '../../../Components/TextInput/textInput';
 import _ from 'lodash';
 import ImagesUpload from 'react-images-upload';
+import ImageWidget from '../../../Components/ImageWidget/imageWidget'
 
 
 const useStyles = makeStyles(theme => ({
@@ -206,6 +206,18 @@ const NewAd = (props) => {
                 className={classes.textDescription}>
                 <TextInput item={item? item.description: null} labelText="Write a short Description" getTextValue={getDescription} isDescription={true} />
             </Grid>
+            {item?
+            <Grid item xs={12} sm={12}
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.textDescription}>
+                <ImageWidget tileData={item.img} />
+            </Grid>
+            :
+            null
+            }
             <Grid item xs={12} sm={12}
                 container
                 direction="row"

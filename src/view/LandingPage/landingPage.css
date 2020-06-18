@@ -1,0 +1,41 @@
+/* why section */
+.whySection{
+    font-size: 55px;
+}
+.atCarstack{
+    font-size: 35px;
+}
+.textCarstack{
+    font-size: 14px;
+}
+@media only screen and (max-width: 992px) {
+    .whySection{
+        font-size: 40px;
+    }
+    .atCarstack{
+        font-size: 24px;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .whySection{
+        font-size: 28px;
+    }
+    .atCarstack{
+        font-size: 20px;
+    }
+}
+/*Book appointment button*/
+.book-appointment{
+    color: black;
+    background-color: white;
+    border: none;
+    height: 40px;
+    letter-spacing: 0.2rem
+ }
+ .book-appointment:hover{
+     color: white;
+     background-color:black;
+ }
+ .book-appointment-div{
+     text-align: center;
+ }
