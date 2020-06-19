@@ -19,24 +19,20 @@ import {
   DOORS,
   FUEL_TYPE,
   VEHICLE_CATEGORY,
-  VEHICLE_TYPE
+  VEHICLE_TYPE,
+  IMAGES,
+  ONECARITEM
 } from "../utils/constant.js";
 
 //function to extract models from specific make
-const MakesList = [];
+let MakesList = [];
 MAKES.map(i => {
   return MakesList.push(i.make);
 });
 
 
 
-const img = [
-  "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1504215680853-026ed2a45def?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-];
+
 
 const Routes = props => {
   const { addError, removeError, errors } = props;
@@ -45,9 +41,8 @@ const Routes = props => {
     handleItemsearch(id);
   };
   const handleItemsearch = searchId => {
-    oneCarItem.forEach(item => {
+    ONECARITEM.forEach(item => {
       if ((item.id = searchId)) {
-        console.log(item);
         return seteditItem(item);
       }
     });
@@ -99,7 +94,7 @@ const Routes = props => {
       {/* Route to users all Ads */}
       <Route exact path="/myads">
         <ViewUserAllAds
-          SetGarage={oneCarItem}
+          SetGarage={ONECARITEM}
           handleIdsearch={handleIdsearch}
         />
       </Route>
@@ -124,7 +119,7 @@ const Routes = props => {
         exact
         path="/viewad/:id"
         render={props => (
-          <ViewUserSingleAd {...props} carItem={oneCarItem[0]} img={img} />
+          <ViewUserSingleAd {...props} carItem={ONECARITEM[0]} img={IMAGES} />
         )}
       />
     </Switch>

@@ -6,6 +6,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { deleteImage } from '../../Handlers/firebase'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +26,20 @@ const useStyles = makeStyles((theme) => ({
         color: 'rgba(255, 255, 255, 0.54)',
       },
 }))
+//handle click function for image delete icon button
+const handleClick = async (imageUrl) => {
+  try{
+    const deleteResponse = await deleteImage(imageUrl);
+    // make api call to delete imageUrl from the database
+    // dispatch editAd action 
+    // wait for confirmation of delete action 
+    // update the ui after the ad is deleted from database 
 
+  }catch{
+    // return any errors
+  }
+
+}
 
 export default function ImageWidget (props){
     const { tileData } = props;
@@ -41,7 +55,7 @@ export default function ImageWidget (props){
                 <img src={tile} alt="image" />
                 <GridListTileBar
                 actionIcon={
-                    <IconButton aria-label={`info about image`} className={classes.icon}>
+                    <IconButton onClick={(imageUrl)=> handleClick(imageUrl)} aria-label={`info about image`} className={classes.icon}>
                     <DeleteForeverIcon />
                     </IconButton>
                 }

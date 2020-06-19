@@ -80,3 +80,15 @@ export const uploadImages =(files, userId) => {
 // user once the user clicks uplod it first uploades and deletes the unwanted images and returns the new url.
 // that list of url is saved in the database.
 // to edit ads we need to retrive storage path from the url
+
+//Function to delete Image
+export const deleteImage = (imageUrl) => {
+
+    // create reference
+    var httpsReference = storageRef.refFromURL(`${imageUrl}`)
+        return httpsReference.delete().then((res)=>{
+            return res
+       }).catch(err => {
+           return err
+       })
+}

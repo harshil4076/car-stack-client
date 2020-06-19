@@ -213,7 +213,7 @@ const NewAd = (props) => {
             justify="center"
             alignItems="center"
             className={classes.textDescription}>
-                <ImageWidget tileData={item.img} />
+                <ImageWidget tileData={item.image} />
             </Grid>
             :
             null
