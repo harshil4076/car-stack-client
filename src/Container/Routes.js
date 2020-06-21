@@ -24,7 +24,6 @@ import {
   IMAGES,
   ONECARITEM
 } from "../utils/constant.js";
-console.log(authUser);
 //function to extract models from specific make
 let MakesList = [];
 MAKES.map(i => {
@@ -98,7 +97,6 @@ const Routes = props => {
         component={ViewUserAllAds}
         currentUser={currentUser}
       />
-
       <PrivateRoute
         exact
         path="/edit/:id"
