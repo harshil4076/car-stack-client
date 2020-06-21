@@ -77,6 +77,7 @@ const Routes = props => {
           removeError={removeError}
         />
       </Route>
+      <PrivateRoute exact path="/signout" currentUser={currentUser} />
       {/* New ad Link  */}
       <Route path="/newad">
         <NewAd

@@ -78,15 +78,18 @@ function Navbar(props) {
   const openDrawer = event => {
     setAnchorEl(event.currentTarget);
   };
+
+  console.log(props.logout);
   // handler to close side drawre
   const closeDrawer = () => {
     setAnchorEl(null);
   };
 
   const currentUser = props.currentUser;
+
+  const logoutUser = props.logout;
   // handler on open drawer
   const ondrawerOpen = () => {};
-
   return (
     <AppBar
       elevation={0}
@@ -118,7 +121,11 @@ function Navbar(props) {
             </Link>
           )}
           {currentUser.isAuthenticated === true && (
-            <Button color="inherit">Sign Out</Button>
+            <Link to="/signout" className={classes.mainLink}>
+              <Button color="inherit" onClick={logoutUser}>
+                Sign Out
+              </Button>
+            </Link>
           )}
         </div>
         {/* Hamburger menu Link Icon */}
