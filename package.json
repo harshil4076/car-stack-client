@@ -2,6 +2,7 @@
   "name": "carstack-client",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://radiant-cliffs-13120.herokuapp.com",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",

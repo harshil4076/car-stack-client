@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import ManageAds from "./manageAds";
 import NewAd from "./PostAd/newAd";
-import {MAKES}from"..
+import { MAKES } from "../../utils/constant.js";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,14 +57,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function MyGarage(props) {
-  const {
-    MAKES,
-    MakesList,
-    yearList,
-    LocationList,
-    myGarage,
-    currentUser
-  } = props;
+  const { MakesList, yearList, LocationList, myGarage, currentUser } = props;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -73,7 +66,7 @@ function MyGarage(props) {
   };
   const handleClick = event => {
     // event.preventDefault();
-    //   myGarage(currentUser.user.id, localStorage.jwtToken)
+    //   myGarage(currentUser.user.id, localStorage.TOKEN_KEY)
     //     .then(() => {
     //     return
     //   }).catch(() => {

@@ -1,24 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
-let url ="https://radiant-cliffs-13120.herokuapp.com";
-
-export function setTokenHeader(token){
-    if(token){
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    else{
-        delete axios.defaults.headers.common["Authorization"];
-    }
+export function setTokenHeader(token) {
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common["Authorization"];
+  }
 }
 
-export function apiCall(method, path, data){
-    return new Promise((resolve, reject) => {
-        return axios[method](`${url}${path}`, data)
-        .then(res => {
-            return resolve(res.data);
-        })
-        .catch(err => {
-            return reject(err)
-        });
-    })
+export function apiCall(method, path, data) {
+  return new Promise((resolve, reject) => {
+    return axios[method](`${path}`, data)
+      .then(res => {
+        return resolve(res.data);
+      })
+      .catch(err => {
+        return reject(err);
+      });
+  });
 }

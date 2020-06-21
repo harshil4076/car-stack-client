@@ -10,6 +10,7 @@ import { addNewAd } from "../Store/Action/newAd";
 import NewAd from "../view/MyGarage/NewAdPage/newAd";
 import ViewUserAllAds from "../view/MyGarage/ViewUsersAllAds/viewUserAllAds";
 import ViewUserSingleAd from "../view/MyGarage/ViewUserSingleAd/viewUserSingleAd";
+import { PrivateRoute } from "./PrivateRoute.js";
 // List of all Makes
 import {
   MAKES,
@@ -23,16 +24,12 @@ import {
   IMAGES,
   ONECARITEM
 } from "../utils/constant.js";
-
+console.log(authUser);
 //function to extract models from specific make
 let MakesList = [];
 MAKES.map(i => {
   return MakesList.push(i.make);
 });
-
-
-
-
 
 const Routes = props => {
   const { addError, removeError, errors } = props;
@@ -47,6 +44,8 @@ const Routes = props => {
       }
     });
   };
+  const currentUser = props.currentUser;
+  console.log(currentUser);
   return (
     <Switch>
       {/* Landing Page Link */}
@@ -80,7 +79,7 @@ const Routes = props => {
         />
       </Route>
       {/* New ad Link  */}
-      <Route exact path="/newad">
+      <Route path="/newad">
         <NewAd
           yearList={YEAR}
           MakesList={MakesList}
@@ -92,15 +91,17 @@ const Routes = props => {
         />
       </Route>
       {/* Route to users all Ads */}
-      <Route exact path="/myads">
-        <ViewUserAllAds
-          SetGarage={ONECARITEM}
-          handleIdsearch={handleIdsearch}
-        />
-      </Route>
-      <Route
+      <PrivateRoute
         exact
-        path="/editad/:id"
+        key="1"
+        path="/myads"
+        component={ViewUserAllAds}
+        currentUser={currentUser}
+      />
+
+      <PrivateRoute
+        exact
+        path="/edit/:id"
         render={routeProps => (
           <NewAd
             {...routeProps}

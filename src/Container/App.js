@@ -11,6 +11,7 @@ import { setAuthorizationToken, setCurrentUser } from "../Store/Action/auth";
 import jwtDecode from "jwt-decode";
 
 const store = configureStore();
+
 // Authentication
 // if(localStorage.jwtToken){
 //   setAuthorizationToken(localStorage.jwtToken);
