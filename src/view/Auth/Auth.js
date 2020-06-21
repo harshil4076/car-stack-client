@@ -110,7 +110,7 @@ export default function Auth(props) {
       const authType = "signup"
       // authUser(authType, signup)
         .then(() => {
-          props.history.push("/myGarage")
+          props.history.push("/myads")
         }).catch(() => {
           return
         })
@@ -118,7 +118,7 @@ export default function Auth(props) {
       const authType = "signin"
     // authUser(authType, signin)
       .then(() => {
-        props.history.push("/myGarage")
+        props.history.push("/myads")
       }).catch(() => {
         return
       })

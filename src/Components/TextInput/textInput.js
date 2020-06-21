@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 //material ui components
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,7 +19,7 @@ const TextInput = props => {
   });
 
   //only to be called when there is a change in state
-  useEffect(() => {
+  useCallback(() => {
     getTextValue(textValue.value);
   }, [getTextValue, textValue.value]);
 

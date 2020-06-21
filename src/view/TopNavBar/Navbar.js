@@ -1,5 +1,5 @@
 import React from 'react';
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 // material ui components
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 
 // Main navbar component
 function Navbar(props) {
+  const { logout, currentUser } = props;
   //material ui makestyles 
   const classes = useStyles();
 
@@ -142,14 +143,14 @@ function Navbar(props) {
   );
 }
 
-// // Mapping current Redux State to props
-// function mapStateToProps(state){
-//   return {
-//     currentUser: state.currentUser
-//   }
-// }
+// Mapping current Redux State to props
+function mapStateToProps(state){
+  return {
+    currentUser: state.currentUser
+  }
+}
 
 // export with Redux store
-// export default connect(mapStateToProps, { logout } )(Navbar);
+export default connect(mapStateToProps, { logout } )(Navbar);
 
-export default Navbar;
+// export default Navbar;

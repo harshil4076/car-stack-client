@@ -100,17 +100,17 @@ export default function LandingPage (props){
              item sm={12} 
              className={classes.searchGrid}  >
                
-            <RadioButt radio={props.radioItems} key={props.radioItems} collectSearchItems={collectSearchItems} />
+            <RadioButt radio={props.radioItems} key={props.radioItems} collectSearchItems={(check)=>collectSearchItems(check)} />
 
         </Grid>
             <Grid item sm={12} className={classes.searchGrid} container     
             direction="row"
             justify="flex-end"
             alignItems="center">
-                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={getYearSelection} />
-                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
-                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={getModelSelection} />
-                <Locationdropdown LocationList={props.LocationList} getLocationSelection={getLocationSelection} />
+                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={(year)=>getYearSelection(year)} />
+                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={(makeSel)=>getMakeSelection(makeSel)} />
+                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={(modelSel)=>getModelSelection(modelSel)} />
+                <Locationdropdown LocationList={props.LocationList} getLocationSelection={(loc)=>getLocationSelection(loc)} />
                 <Button className={classes.searchButton} variant="contained" color="primary" disableElevation>
                     Search
                 </Button>

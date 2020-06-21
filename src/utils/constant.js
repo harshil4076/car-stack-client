@@ -9,6 +9,9 @@ export const MAKES = [
   }
 ];
 
+
+export const MAKESLIST =["Honda", "Toyota"];
+
 export const YEAR = ["2015", "2016", "2017", "2018", "2019", "2020"];
 
 export const LOCATION_LIST = [

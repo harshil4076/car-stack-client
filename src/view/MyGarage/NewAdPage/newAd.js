@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 //material Ui components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -78,6 +78,9 @@ const NewAd = (props) => {
         "image": []
 
     })
+
+    const [picList, setPicList] = React.useState()
+
     const getYearSelection = (data) =>{
         setNewAd({...newAd, year:data})
     }   
@@ -130,12 +133,14 @@ const NewAd = (props) => {
     const handleImageUpload = async () => {
     }
 
-    const [picList, setPicList] = React.useState(item? item.images: [])
     const onDrop = (picture) =>{
         setPicList(picture)
     }
-   
-    useEffect(() => {
+//    const handleMakechange = () => {
+//         const list = getModelList(newAd.make);
+//         setNewAd({...newAd, modelList:list });
+//    }
+    useCallback(() => {
         const list = getModelList(newAd.make);
         setNewAd({...newAd, modelList:list });
     }, [newAd.make])

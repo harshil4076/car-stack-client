@@ -42,11 +42,13 @@ export default function YearDropdown (props){
        "year": item? item : "" 
     })
     // function handles user input
-    const handleChange = (event) =>{
+    const handleChange =  (event) =>{
         setYear({year: event.target.value})
+        // await getYearSelection(Year.year)
+
     }
     // to be called when user selects or changes the value of the year
-    React.useEffect(()=> {
+    React.useCallback(()=> {
         getYearSelection(Year.year)
     }, [Year.year])
     return(
@@ -55,7 +57,7 @@ export default function YearDropdown (props){
                     <Select
                         MenuProps={MenuProps}
                         varient="outlined"
-                        onChange={handleChange}
+                        onChange={(event) => handleChange(event)}
                         value={Year.year}
                         >
                             {yearList? 

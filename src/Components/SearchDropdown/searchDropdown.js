@@ -40,7 +40,7 @@ export default function SearchDropDown (props){
     const handleChange = (event) => {
         setItemMake({...itemMake, make:event.target.value});
       };
-      React.useEffect(() => {
+      React.useCallback(() => {
         getMakeSelection(itemMake.make)
       }, [itemMake.make])
     
