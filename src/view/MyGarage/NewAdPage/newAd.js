@@ -12,6 +12,8 @@ import _ from 'lodash';
 import ImagesUpload from 'react-images-upload';
 import ImageWidget from '../../../Components/ImageWidget/imageWidget'
 
+//upload function firebase
+import { uploadImages } from '../../../Handlers/firebase'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -126,11 +128,12 @@ const NewAd = (props) => {
       }
   
     const handlePost = () =>{
-        
     }
                 
       
-    const handleImageUpload = async () => {
+    const handleImageUpload = () => {
+        console.log(uploadImages(picList, "1234"))
+
     }
 
     const onDrop = (picture) =>{

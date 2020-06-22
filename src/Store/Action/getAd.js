@@ -1,20 +1,18 @@
-// make api call to update single ad 
 import { apiCall } from '../../services/api';
 import { addError, removeError } from './errors';
-import { UPDATE_AD } from '../actiontypes'; 
+import {GET_AD} from '../actiontypes';
 
-// after update dispatch the action to change state of that ad 
 function SetGetAd (getAd) {
     return {
         type: GET_AD,
         getAd
     }
 }
-// update input is in request body
-export function updateAd(newAdData){
+
+export function getAd(user_id, ad_id){
     return dispatch => {
         return new Promise((resolve, reject) => {
-            return apiCall("put", `/api/user/${newAdData.user}/ads/createnewad`, newAdData)
+            return apiCall("get", `/api/user/${user_id}/ads/${ad_id}`)
             .then(( addata ) => {
                 dispatch(SetGetAd(addata))
                 dispatch(removeError());

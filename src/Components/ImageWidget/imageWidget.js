@@ -29,12 +29,14 @@ const useStyles = makeStyles((theme) => ({
 //handle click function for image delete icon button
 const handleClick = async (imageUrl) => {
   try{
+    console.log(imageUrl)
     const deleteResponse = await deleteImage(imageUrl);
+    console.log(deleteResponse);
     // make api call to delete imageUrl from the database
     // dispatch editAd action 
     // wait for confirmation of delete action 
     // update the ui after the ad is deleted from database 
-
+    
   }catch{
     // return any errors
   }
@@ -55,7 +57,7 @@ export default function ImageWidget (props){
                 <img src={tile} alt="image" />
                 <GridListTileBar
                 actionIcon={
-                    <IconButton onClick={(imageUrl)=> handleClick(imageUrl)} aria-label={`info about image`} className={classes.icon}>
+                    <IconButton onClick={() => handleClick(tile)} aria-label={`info about image`} className={classes.icon}>
                     <DeleteForeverIcon />
                     </IconButton>
                 }
