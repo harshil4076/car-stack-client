@@ -59,6 +59,10 @@ const useStyles = makeStyles(theme => ({
 export default function Auth(props) {
   const { authUser, isSignin, isSignup } = props;
   const classes = useStyles();
+  // console.log(Yup.object().when("signUp"){
+  //   is:true
+  // });
+  console.log(isSignup);
 
   const formik = useFormik({
     initialValues: {
@@ -67,21 +71,19 @@ export default function Auth(props) {
       password: ""
     },
     validationSchema: Yup.object({
-      username: Yup.string().when("isSignup", {
-        is: true,
-        then: Yup.string()
-          .max(15, "Must be 15 characters or less")
-          .required("Required")
-      }),
+      username: isSignup
+        ? Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Username Required")
+        : null,
       email: Yup.string()
         .email("Invalid email address")
-        .required("Required"),
-      password: Yup.string().when("isSignup", {
-        is: true,
-        then: Yup.string()
-          .min(8, "Must be 8 characters or more")
-          .required("Required")
-      })
+        .required("Email Required"),
+      password: isSignup
+        ? Yup.string()
+            .min(8, "Must be 8 characters or more")
+            .required("Password Required")
+        : Yup.string().required("Password Required")
     }),
     onSubmit: values => {
       const signin = {
@@ -93,11 +95,8 @@ export default function Auth(props) {
         email: values.email,
         password: values.password
       };
-      if (isSignup) {
-        handleSubmit(signup, signin, isSignup);
-      } else {
-        handleSubmit(signup, signin, isSignup);
-      }
+
+      handleSubmit(signup, signin, isSignup);
     }
   });
   const handleSubmit = (signup, signin, isSignup) => {
@@ -121,6 +120,7 @@ export default function Auth(props) {
         });
     }
   };
+  console.log(formik.touched.email);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -131,65 +131,80 @@ export default function Auth(props) {
         <Typography component="h1" variant="h5">
           {isSignup ? "Sign Up" : "Sign In"}
         </Typography>
-        <form
-          className={classes.form}
-          onSubmit={formik.handleSubmit}
-          noValidate
-        >
+        <form className={classes.form} onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
             {isSignup ? (
               <Grid item xs={12} sm={12}>
                 <TextField
+                  error={
+                    formik.touched.username && formik.errors.username
+                      ? true
+                      : false
+                  }
+                  helperText={
+                    formik.touched.username && formik.errors.username
+                      ? formik.errors.username
+                      : ""
+                  }
                   autoComplete="Username"
                   name="username"
                   variant="outlined"
-                  required
                   fullWidth
+                  onBlur={formik.handleBlur("username")}
                   id="username"
-                  label="username"
+                  label="Username"
                   autoFocus
                   {...formik.getFieldProps("username")}
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <div className={classes.errors}>{formik.errors.username}</div>
-                ) : null}
               </Grid>
             ) : null}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
+                error={
+                  formik.touched.email && formik.errors.email ? true : false
+                }
+                helperText={
+                  formik.touched.email && formik.errors.email
+                    ? formik.errors.email
+                    : ""
+                }
                 fullWidth
                 id="email"
+                onBlur={formik.handleBlur("email")}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 {...formik.getFieldProps("email")}
               />
-              {formik.touched.email && formik.errors.email ? (
-                <div className={classes.errors}>{formik.errors.email}</div>
-              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
+                error={
+                  formik.touched.password && formik.errors.password
+                    ? true
+                    : false
+                }
+                helperText={
+                  formik.touched.password && formik.errors.password
+                    ? formik.errors.password
+                    : ""
+                }
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                autoComplete="password"
                 {...formik.getFieldProps("password")}
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div className={classes.errors}>{formik.errors.password}</div>
-              ) : null}
             </Grid>
             {isSignup ? (
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" />}
+                  style={{ textAlign: "left" }}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
@@ -206,14 +221,16 @@ export default function Auth(props) {
           <Grid container justify="flex-end">
             {isSignup ? (
               <Grid item>
+                {"Already have an account? "}
                 <LinkBs to="/signin" className={classes.links}>
-                  Already have an account? Sign in
+                  Sign in
                 </LinkBs>
               </Grid>
             ) : (
               <Grid item>
+                {"Don't have an account? "}
                 <LinkBs to="/signup" className={classes.links}>
-                  {"Don't have an account? Sign Up"}
+                  {"Sign Up"}
                 </LinkBs>
               </Grid>
             )}
