@@ -69,21 +69,15 @@ export default function Auth(props) {
       password: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().when("isSignup",{
-        is: true,
-        then: Yup.string()
+      username:  Yup.string()
           .max(15, 'Must be 15 characters or less')
           .required('Required'),
-      } ),
       email: Yup.string()
         .email('Invalid email address')
         .required('Required'),
-      password: Yup.string().when("isSignup", {
-        is: true , 
-        then: Yup.string()
+      password: Yup.string()
         .min(8, 'Must be 8 characters or more')
-        .required('Required'),
-      })
+        .required('Required')
     }),
     onSubmit: values => {
       const signin = {
@@ -124,6 +118,12 @@ export default function Auth(props) {
       })
     }
     
+  }
+  const handleClick = () => {
+    formik.errors.email = null;
+    formik.errors.username = null;
+    formik.errors.password = null;
+
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -204,7 +204,7 @@ export default function Auth(props) {
               </LinkBs>
             </Grid> : 
               <Grid item>
-              <LinkBs to="/signup" className={classes.links}>
+              <LinkBs to="/signup" onClick={() => handleClick()} className={classes.links}>
                 {"Don't have an account? Sign Up"}
               </LinkBs>
             </Grid>
