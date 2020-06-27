@@ -102,6 +102,7 @@ export default function Auth(props) {
   const handleSubmit = (signup, signin, isSignup) => {
     if (isSignup) {
       const authType = "signup";
+      console.log(signup)
       authUser(authType, signup)
         .then(() => {
           props.history.push("/myGarage");

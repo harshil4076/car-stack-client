@@ -32,8 +32,10 @@ export function authUser(type, userData) {
           dispatch(removeError());
           resolve();
         })
-        .catch(err => {
-          dispatch(addError(err.message));
+        .catch( (err) => {
+          // err.response contains all response data and code in axios
+          console.log(err.response.data.error)
+          dispatch(addError(err.response.data.error));
           reject();
         });
     });
