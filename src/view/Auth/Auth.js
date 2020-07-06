@@ -62,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 export default function Auth(props) {
   const { authUser, isSignin } = props;
   const classes = useStyles();
-<<<<<<< HEAD
 
   const handleSubmit = (authType, userData) => {
     try {
@@ -80,72 +79,6 @@ export default function Auth(props) {
     }
   };
   console.log("AUTH");
-=======
-  
-  const formik = useFormik({
-    initialValues:{
-      username: '',
-      email: '',
-      password: '',
-    },
-    validationSchema: Yup.object({
-      username:  Yup.string()
-          .max(15, 'Must be 15 characters or less')
-          .required('Required'),
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Required'),
-      password: Yup.string()
-        .min(8, 'Must be 8 characters or more')
-        .required('Required')
-    }),
-    onSubmit: values => {
-      const signin = {
-        "email": values.email,
-        "password": values.password
-      }
-      const signup = {
-        "username": values.username,
-        "email": values.email,
-        "password": values.password
-      }
-      if (isSignup){
-        alert(JSON.stringify(signup, null, 2));
-        handleSubmit(signup, signin, isSignup)
-      }
-      else{
-        alert(JSON.stringify(signin, null, 2));
-        handleSubmit(signup, signin, isSignup)
-      }
-    }
-  })
-  const handleSubmit = (signup, signin, isSignup) => {
-    if(isSignup){
-      const authType = "signup"
-      // authUser(authType, signup)
-        .then(() => {
-          props.history.push("/myads")
-        }).catch(() => {
-          return
-        })
-    }else {
-      const authType = "signin"
-    // authUser(authType, signin)
-      .then(() => {
-        props.history.push("/myads")
-      }).catch(() => {
-        return
-      })
-    }
-    
-  }
-  const handleClick = () => {
-    formik.errors.email = null;
-    formik.errors.username = null;
-    formik.errors.password = null;
-
-  }
->>>>>>> firebase_setup
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -185,16 +118,7 @@ export default function Auth(props) {
             <Grid item>
               {"Already have an account? "}
               <LinkBs to="/signin" className={classes.links}>
-<<<<<<< HEAD
                 Sign in
-=======
-                Already have an account? Sign in
-              </LinkBs>
-            </Grid> : 
-              <Grid item>
-              <LinkBs to="/signup" onClick={() => handleClick()} className={classes.links}>
-                {"Don't have an account? Sign Up"}
->>>>>>> firebase_setup
               </LinkBs>
             </Grid>
           )}

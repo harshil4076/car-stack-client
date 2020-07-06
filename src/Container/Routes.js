@@ -14,7 +14,6 @@ import ViewUserAllAds from "../view/MyGarage/ViewUsersAllAds/viewUserAllAds";
 import ViewUserSingleAd from "../view/MyGarage/ViewUserSingleAd/viewUserSingleAd";
 import { PrivateRoute } from "./PrivateRoute.js";
 // List of all Makes
-<<<<<<< HEAD
 import {
   MAKES,
   YEAR,
@@ -32,23 +31,6 @@ let MakesList = [];
 MAKES.map(i => {
   return MakesList.push(i.make);
 });
-=======
-// import {
-//   MAKES,
-//   MAKESLIST,
-//   YEAR,
-//   LOCATION_LIST,
-//   TRANSMISSION,
-//   DOORS,
-//   FUEL_TYPE,
-//   VEHICLE_CATEGORY,
-//   VEHICLE_TYPE,
-//   IMAGES,
-//   ONECARITEM
-// } from "../utils/constant.js";
-
-
->>>>>>> firebase_setup
 
 const Routes = props => {
   const { addError, removeError, errors, authUser, staticProps } = props;
@@ -106,7 +88,6 @@ const Routes = props => {
       </Route>
       <PrivateRoute exact path="/signout" currentUser={currentUser} />
       {/* New ad Link  */}
-<<<<<<< HEAD
       <Route path="/newad">
         <NewAd
           yearList={YEAR}
@@ -127,30 +108,6 @@ const Routes = props => {
         currentUser={currentUser}
       />
       <PrivateRoute
-=======
-      <Route exact path="/newad" 
-        render={routeProps => (
-            <NewAd
-              {...routeProps}
-              yearList={staticProps.YEAR}
-              MakesList={staticProps.MAKESLIST}
-              allMakes={staticProps.MAKES}
-              categoryList={staticProps.VEHICLE_TYPE}
-              transmission={staticProps.TRANSMISSION}
-              doors={staticProps.DOORS}
-              fuelType={staticProps.FUEL_TYPE}
-          /> )} 
-          />
-        
-      {/* Route to users all Ads */}
-      <Route exact path="/myads">
-        <ViewUserAllAds
-          SetGarage={staticProps.ONECARITEM}
-          handleIdsearch={handleIdsearch}
-        />
-      </Route>
-      <Route
->>>>>>> firebase_setup
         exact
         path="/edit/:id"
         render={routeProps => (
