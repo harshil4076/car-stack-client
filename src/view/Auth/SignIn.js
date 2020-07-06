@@ -105,6 +105,11 @@ export default function SignIn(props) {
             {...formik.getFieldProps("password")}
           />
         </Grid>
+        <Grid item xs={12} style={{ textAlign: "right" }}>
+          <LinkBs to="/forgot-password" className={classes.links}>
+            Forgot Password ?
+          </LinkBs>
+        </Grid>
 
         <Grid item xs={12}>
           <Button
