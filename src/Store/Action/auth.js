@@ -22,8 +22,6 @@ export function logout() {
 }
 
 export function authUser(type, userData) {
-  console.log(type);
-  console.log(userData);
   return dispatch => {
     return new Promise((resolve, reject) => {
       return apiCall("post", `/api/auth/${type}`, userData)
@@ -36,7 +34,13 @@ export function authUser(type, userData) {
         })
         .catch(err => {
           // err.response contains all response data and code in axios
-          dispatch(addError(err.response.data.error));
+          console.log(err)
+          if(err){
+            dispatch(addError(err.response.data.error));
+          }
+          else{
+            dispatch(addError(err))
+          }
           reject();
         });
     });

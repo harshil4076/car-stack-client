@@ -9,16 +9,15 @@ export function setTokenHeader(token) {
 }
 
 export function apiCall(method, path, data) {
-  console.log(path);
-  console.log(data);
   return new Promise((resolve, reject) => {
     return axios[method](`${path}`, data)
       .then(res => {
-        if (!res.ok) {
-          throw res;
-        } else {
-          return resolve(res.data);
-        }
+        // if (!res.ok) {
+        //   throw res;
+        // } else {
+        //   return resolve(res.data);
+        // }
+        resolve(res.data)
       })
       .catch(err => {
         return reject(err);

@@ -65,6 +65,7 @@ export default function SignUp(props) {
     }),
     onSubmit: values => {
       const signUp = {
+        username: values.username,
         email: values.email,
         password: values.password
       };
