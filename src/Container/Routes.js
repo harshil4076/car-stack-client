@@ -8,6 +8,8 @@ import { myGarage } from "../Store/Action/myGarage";
 import { addError, removeError } from "../Store/Action/errors";
 import { addNewAd } from "../Store/Action/newAd";
 import NewAd from "../view/MyGarage/NewAdPage/newAd";
+import ForgotPassword from "../view/Auth/ForgotPassword.js";
+import ResetPassword from "../view/Auth/ResetPassword.js";
 import ViewUserAllAds from "../view/MyGarage/ViewUsersAllAds/viewUserAllAds";
 import ViewUserSingleAd from "../view/MyGarage/ViewUserSingleAd/viewUserSingleAd";
 import { PrivateRoute } from "./PrivateRoute.js";
@@ -77,6 +79,12 @@ const Routes = props => {
           errors={errors}
           removeError={removeError}
         />
+      </Route>
+      <Route exact path="/forgot-password">
+        <ForgotPassword />
+      </Route>
+      <Route exact path="/reset-password">
+        <ResetPassword />
       </Route>
       <PrivateRoute exact path="/signout" currentUser={currentUser} />
       {/* New ad Link  */}
