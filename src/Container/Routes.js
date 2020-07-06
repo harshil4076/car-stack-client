@@ -63,6 +63,7 @@ const Routes = props => {
         <Auth
           onAuth={authUser}
           {...props}
+          isSignin={true}
           errors={errors}
           removeError={removeError}
         />
@@ -71,7 +72,7 @@ const Routes = props => {
       <Route exact path="/signup">
         <Auth
           onAuth={authUser}
-          isSignup={true}
+          isSignin={false}
           {...props}
           errors={errors}
           removeError={removeError}

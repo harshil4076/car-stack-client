@@ -22,10 +22,13 @@ export function logout() {
 }
 
 export function authUser(type, userData) {
+  console.log(type);
+  console.log(userData);
   return dispatch => {
     return new Promise((resolve, reject) => {
       return apiCall("post", `/api/auth/${type}`, userData)
         .then(({ token, ...user }) => {
+          console.log(token);
           localStorage.setItem("TOKEN_KEY", token);
           setAuthorizationToken(token);
           dispatch(setCurrentUser(user));
@@ -33,6 +36,7 @@ export function authUser(type, userData) {
           resolve();
         })
         .catch(err => {
+          console.log(err.status);
           dispatch(addError(err.message));
           reject();
         });
