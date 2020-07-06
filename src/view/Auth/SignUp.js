@@ -15,6 +15,8 @@ import Container from "@material-ui/core/Container";
 import { Link as LinkBs } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import SnackbarContent from "../../Components/Snackbar/SnackbarContent.js";
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -74,6 +76,15 @@ export default function SignUp(props) {
   return (
     <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          {props.errorMessage && (
+            <SnackbarContent
+              message={props.errorMessage}
+              close
+              color="danger"
+            />
+          )}
+        </Grid>
         <Grid item xs={12} sm={12}>
           <TextField
             name="username"

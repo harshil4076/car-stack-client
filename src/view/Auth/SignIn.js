@@ -15,6 +15,8 @@ import Container from "@material-ui/core/Container";
 import { Link as LinkBs } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import SnackbarContent from "../../Components/Snackbar/SnackbarContent.js";
+
 const useStyles = makeStyles(theme => ({
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -57,10 +59,18 @@ export default function SignIn(props) {
       props.handleSubmit("signin", signIn);
     }
   });
-
   return (
     <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          {props.errorMessage && (
+            <SnackbarContent
+              message={props.errorMessage}
+              close
+              color="danger"
+            />
+          )}
+        </Grid>
         <Grid item xs={12}>
           <TextField
             variant="outlined"

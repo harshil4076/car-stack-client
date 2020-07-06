@@ -61,17 +61,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Auth(props) {
   const { authUser, isSignin } = props;
-  console.log(props);
-  console.log(isSignin);
   const classes = useStyles();
-  console.log("EEEE");
 
   const handleSubmit = (authType, userData) => {
-    console.log(authType);
-    console.log(userData);
     try {
       authUser(authType, userData)
         .then(response => {
+          console.log("inside response");
           console.log(response);
           props.history.push("/myGarage");
         })
@@ -82,6 +78,7 @@ export default function Auth(props) {
       console.log(error);
     }
   };
+  console.log("AUTH");
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -92,10 +89,21 @@ export default function Auth(props) {
         <Typography component="h1" variant="h5">
           {isSignin ? "Sign In" : "Sign Up"}
         </Typography>
+
         {isSignin ? (
-          <SignIn handleSubmit={handleSubmit} />
+          <SignIn
+            handleSubmit={handleSubmit}
+            errorMessage={
+              props.errors.message ? props.errors.message.message : ""
+            }
+          />
         ) : (
-          <SignUp handleSubmit={handleSubmit} />
+          <SignUp
+            handleSubmit={handleSubmit}
+            errorMessage={
+              props.errors.message ? props.errors.message.message : ""
+            }
+          />
         )}
 
         <Grid container justify="flex-end">
