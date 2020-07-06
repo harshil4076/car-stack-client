@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React from "react";
 import { connect } from "react-redux";
+=======
+import React from 'react';
+import { connect } from 'react-redux'
+>>>>>>> firebase_setup
 // material ui components
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
@@ -66,7 +71,12 @@ const useStyles = makeStyles(theme => ({
 
 // Main navbar component
 function Navbar(props) {
+<<<<<<< HEAD
   //material ui makestyles
+=======
+  const { logout, currentUser } = props;
+  //material ui makestyles 
+>>>>>>> firebase_setup
   const classes = useStyles();
 
   //anchor switch for drawer open and close
@@ -171,6 +181,7 @@ function Navbar(props) {
   );
 }
 
+<<<<<<< HEAD
 // // Mapping current Redux State to props
 function mapStateToProps(state) {
   return {
@@ -182,3 +193,16 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { logout })(Navbar);
 
 // export default Navbar;
+=======
+// Mapping current Redux State to props
+function mapStateToProps(state){
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+// export with Redux store
+export default connect(mapStateToProps, { logout } )(Navbar);
+
+// export default Navbar;
+>>>>>>> firebase_setup

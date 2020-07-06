@@ -14,16 +14,17 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  var storage = firebase.storage();
 var storageRef = firebase.storage().ref();
 
-//upload images to firebase storage returns list of urls.
-export const uploadImages =(files, userId) => {
-    const promises = [];
+//upload images to firebase storage returns promise list of urls.
+export const uploadImages = async (files, userId) => {
+    // const promises = [];
     let urlList=[];
-    files.forEach(file => {
+    await files.forEach(file => {
 
         const uploadTask = storageRef.child(`images/${userId}/` + file.name).put(file);
-            promises.push(uploadTask)
+            // promises.push(uploadTask)
         // Listen for state changes, errors, and completion of the upload.
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
             function(snapshot) {
@@ -61,14 +62,16 @@ export const uploadImages =(files, userId) => {
                   urlList.push(downloadUrl); 
                 })
             });            
-    })
+    });
+
+    return urlList;
     //include all requests in single promise
-   return Promise.all(promises)
-        .then(() => {
-            // url List
-            return urlList;
-        })
-        .catch(err => console.log(err.code));
+//    return Promise.all(promises)
+//         .then(() => {
+//             // url List
+//             return urlList;
+//         })
+//         .catch(err => console.log(err.code));
  }
 
 // save those urls in database
@@ -83,12 +86,15 @@ export const uploadImages =(files, userId) => {
 
 //Function to delete Image
 export const deleteImage = (imageUrl) => {
-
     // create reference
-    var httpsReference = storageRef.refFromURL(`${imageUrl}`)
+    var httpsReference = storage.refFromURL(`${imageUrl}`)
+    console.log(httpsReference)
+
         return httpsReference.delete().then((res)=>{
+            console.log(res)
             return res
        }).catch(err => {
+            console.log(err)
            return err
        })
 }

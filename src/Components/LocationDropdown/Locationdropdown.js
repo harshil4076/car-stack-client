@@ -40,7 +40,7 @@ export default function Locationdropdown (props){
     const handleChange = (event) =>{
         setLocation({location: event.target.value})
     }
-    React.useEffect(()=> {
+    React.useCallback(()=> {
         getLocationSelection(location.location)
     }, [location.location])
     return(

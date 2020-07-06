@@ -14,6 +14,7 @@ import ViewUserAllAds from "../view/MyGarage/ViewUsersAllAds/viewUserAllAds";
 import ViewUserSingleAd from "../view/MyGarage/ViewUserSingleAd/viewUserSingleAd";
 import { PrivateRoute } from "./PrivateRoute.js";
 // List of all Makes
+<<<<<<< HEAD
 import {
   MAKES,
   YEAR,
@@ -31,15 +32,32 @@ let MakesList = [];
 MAKES.map(i => {
   return MakesList.push(i.make);
 });
+=======
+// import {
+//   MAKES,
+//   MAKESLIST,
+//   YEAR,
+//   LOCATION_LIST,
+//   TRANSMISSION,
+//   DOORS,
+//   FUEL_TYPE,
+//   VEHICLE_CATEGORY,
+//   VEHICLE_TYPE,
+//   IMAGES,
+//   ONECARITEM
+// } from "../utils/constant.js";
+
+
+>>>>>>> firebase_setup
 
 const Routes = props => {
-  const { addError, removeError, errors } = props;
+  const { addError, removeError, errors, authUser, staticProps } = props;
   const [editItem, seteditItem] = React.useState("");
   const handleIdsearch = id => {
     handleItemsearch(id);
   };
   const handleItemsearch = searchId => {
-    ONECARITEM.forEach(item => {
+    staticProps.ONECARITEM.forEach(item => {
       if ((item.id = searchId)) {
         return seteditItem(item);
       }
@@ -53,11 +71,11 @@ const Routes = props => {
       <Route exact path="/">
         <LandingPage
           {...props}
-          allMakes={MAKES}
-          MakesList={MakesList}
-          radioItems={VEHICLE_CATEGORY}
-          yearList={YEAR}
-          LocationList={LOCATION_LIST}
+          allMakes={staticProps.MAKES}
+          MakesList={staticProps.MAKESLIST}
+          radioItems={staticProps.VEHICLE_CATEGORY}
+          yearList={staticProps.YEAR}
+          LocationList={staticProps.LOCATION_LIST}
         />
       </Route>
       {/* Auth Page Link */}
@@ -88,6 +106,7 @@ const Routes = props => {
       </Route>
       <PrivateRoute exact path="/signout" currentUser={currentUser} />
       {/* New ad Link  */}
+<<<<<<< HEAD
       <Route path="/newad">
         <NewAd
           yearList={YEAR}
@@ -108,19 +127,43 @@ const Routes = props => {
         currentUser={currentUser}
       />
       <PrivateRoute
+=======
+      <Route exact path="/newad" 
+        render={routeProps => (
+            <NewAd
+              {...routeProps}
+              yearList={staticProps.YEAR}
+              MakesList={staticProps.MAKESLIST}
+              allMakes={staticProps.MAKES}
+              categoryList={staticProps.VEHICLE_TYPE}
+              transmission={staticProps.TRANSMISSION}
+              doors={staticProps.DOORS}
+              fuelType={staticProps.FUEL_TYPE}
+          /> )} 
+          />
+        
+      {/* Route to users all Ads */}
+      <Route exact path="/myads">
+        <ViewUserAllAds
+          SetGarage={staticProps.ONECARITEM}
+          handleIdsearch={handleIdsearch}
+        />
+      </Route>
+      <Route
+>>>>>>> firebase_setup
         exact
         path="/edit/:id"
         render={routeProps => (
           <NewAd
             {...routeProps}
             item={editItem}
-            yearList={YEAR}
-            MakesList={MakesList}
-            allMakes={MAKES}
-            categoryList={VEHICLE_TYPE}
-            transmission={TRANSMISSION}
-            doors={DOORS}
-            fuelType={FUEL_TYPE}
+            yearList={staticProps.YEAR}
+            MakesList={staticProps.MAKESLIST}
+            allMakes={staticProps.MAKES}
+            categoryList={staticProps.VEHICLE_TYPE}
+            transmission={staticProps.TRANSMISSION}
+            doors={staticProps.DOORS}
+            fuelType={staticProps.FUEL_TYPE}
           />
         )}
       />
@@ -128,7 +171,7 @@ const Routes = props => {
         exact
         path="/viewad/:id"
         render={props => (
-          <ViewUserSingleAd {...props} carItem={ONECARITEM[0]} img={IMAGES} />
+          <ViewUserSingleAd {...props} carItem={staticProps.ONECARITEM[0]} img={staticProps.IMAGES} />
         )}
       />
     </Switch>
@@ -138,13 +181,12 @@ const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
     errors: state.errors,
-    year: YEAR,
     SetGarage: state.myGarage,
-    newAd: state.addNewAd
+    newAd: state.addNewAd,
+    staticProps: state.staticProps.dropItems
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError, myGarage, addNewAd })(
-    Routes
-  )
+  connect(mapStateToProps, { authUser,addError, removeError, myGarage, addNewAd })
+  (Routes)
 );
