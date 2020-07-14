@@ -123,8 +123,8 @@ export default function LandingPage (props){
                               <p className="text-lg-right text-wrap font-weight-normal textCarstack">
                                     It’s all about pride. The pride we take in selling and servicing brand vehicles, some of the most reliable, safe and innovative on the road today. The pride we take in ensuring your experience here at CARSTACK exceeds your expectations, from first appointment through final delivery...and beyond. The pride we take in giving back, particularly our direct involvement in CARSTACK events that support our entire community.
                               </p>
-                              <button className="book-appointment border m-3 float-left float-lg-right">MEET OUT TEAM</button>
-                              <button className="book-appointment border m-3 float-left float-lg-right">CONTACT US</button>
+                              <button className="book-appointment border m-3 p-3 float-left float-lg-right">MEET OUT TEAM</button>
+                              <button className="book-appointment border m-3 p-3 float-left float-lg-right">CONTACT US</button>
 
                         </div>
                         <div className="col-lg-6">
