@@ -38,7 +38,12 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: "0.3rem",
     fontSize: "22pt",
     fontFamily: "'Oswald', sans-serif",
-    paddingLeft: "50px"
+    paddingLeft: "50px",
+    textDecoration: "none",
+    "&:hover":{
+    textDecoration: "none",
+    color: "white",
+    }
   },
   userLinks: {
     flexGrow: 1,
@@ -55,7 +60,18 @@ const useStyles = makeStyles(theme => ({
   },
   mainLink: {
     textDecoration: "none",
-    color: "inherit"
+    color: "inherit",
+    "&:hover":{
+      textDecoration: "none",
+      color:"inherit"
+    }
+  },
+  navButtons:{
+    fontweight: "bold",
+    color: "inherit",
+    // letterSpacing: "0.1rem",
+    fontSize: "12pt",
+    // fontFamily: "'Oswald', sans-serif",
   },
   img: {
     width: "40px",
@@ -105,9 +121,18 @@ function Navbar(props) {
           </Typography>
         </Link>
         <div className={classes.userLinks}>
+            <Link to="/search" className={classes.mainLink}>
+              <Button color="inherit" className={classes.navButtons}>Search</Button>
+            </Link>
+            <Link to="/financing" className={classes.mainLink}>
+              <Button color="inherit" className={classes.navButtons}>Financing</Button>
+            </Link>
+            <Link to="/about" className={classes.mainLink}>
+              <Button color="inherit" className={classes.navButtons}>About</Button>
+            </Link>
           {currentUser.isAuthenticated === true && (
             <Link to="/myads" className={classes.mainLink}>
-              <Button color="inherit">My Ads</Button>
+              <Button color="inherit" className={classes.navButtons}>My Ads</Button>
             </Link>
           )}
           {currentUser.isAuthenticated === true && (
@@ -117,12 +142,12 @@ function Navbar(props) {
           )}
           {currentUser.isAuthenticated === false && (
             <Link to="/signin" className={classes.mainLink}>
-              <Button color="inherit">Sign In</Button>
+              <Button color="inherit" className={classes.navButtons}>Sign In</Button>
             </Link>
           )}
           {currentUser.isAuthenticated === true && (
             <Link to="/signout" className={classes.mainLink}>
-              <Button color="inherit" onClick={logoutUser}>
+              <Button color="inherit" onClick={logoutUser} >
                 Sign Out
               </Button>
             </Link>

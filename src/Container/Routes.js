@@ -58,6 +58,7 @@ const Routes = props => {
           radioItems={staticProps.VEHICLE_CATEGORY}
           yearList={staticProps.YEAR}
           LocationList={staticProps.LOCATION_LIST}
+          images={staticProps.IMAGES}
         />
       </Route>
       {/* Auth Page Link */}

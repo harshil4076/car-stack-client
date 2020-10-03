@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LandingPage (props){
     const classes = useStyles();
+    const { images } = props;
     //State to save input data
     const [data, setData] = React.useState({
         "make": "",
@@ -91,7 +92,14 @@ export default function LandingPage (props){
     return(
       
         <Grid container className={classes.mainGrid}> 
-        <Banner />
+        <Banner images={images} />
+              
+            {/* // direction="row"
+            // justify="center"
+            // alignItems="center"
+            // item sm={12}  
+            > */}
+      
         <Grid   
             container     
             direction="row"
@@ -99,9 +107,7 @@ export default function LandingPage (props){
             alignItems="center"
              item sm={12} 
              className={classes.searchGrid}  >
-               
             <RadioButt radio={props.radioItems} key={props.radioItems} collectSearchItems={(check)=>collectSearchItems(check)} />
-
         </Grid>
             <Grid item sm={12} className={classes.searchGrid} container     
             direction="row"
