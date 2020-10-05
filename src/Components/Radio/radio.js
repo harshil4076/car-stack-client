@@ -40,7 +40,7 @@ export default function RadioButt({ radio, collectSearchItems }) {
         setCheckBox({...checkBox, [event.target.value]: event.target.checked});
     }
     
-    React.useEffect(() => {
+    React.useCallback(() => {
         collectSearchItems(checkBox)
     },[checkBox])
     return (

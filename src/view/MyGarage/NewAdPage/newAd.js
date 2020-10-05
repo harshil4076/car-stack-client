@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 //material Ui components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +12,8 @@ import _ from 'lodash';
 import ImagesUpload from 'react-images-upload';
 import ImageWidget from '../../../Components/ImageWidget/imageWidget'
 
+//upload function firebase
+import { uploadImages } from '../../../Handlers/firebase'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -78,6 +80,9 @@ const NewAd = (props) => {
         "image": []
 
     })
+
+    const [picList, setPicList] = React.useState()
+
     const getYearSelection = (data) =>{
         setNewAd({...newAd, year:data})
     }   
@@ -123,19 +128,22 @@ const NewAd = (props) => {
       }
   
     const handlePost = () =>{
-        
     }
                 
       
-    const handleImageUpload = async () => {
+    const handleImageUpload = () => {
+        console.log(uploadImages(picList, "1234"))
+
     }
 
-    const [picList, setPicList] = React.useState(item? item.images: [])
     const onDrop = (picture) =>{
         setPicList(picture)
     }
-   
-    useEffect(() => {
+//    const handleMakechange = () => {
+//         const list = getModelList(newAd.make);
+//         setNewAd({...newAd, modelList:list });
+//    }
+    useCallback(() => {
         const list = getModelList(newAd.make);
         setNewAd({...newAd, modelList:list });
     }, [newAd.make])

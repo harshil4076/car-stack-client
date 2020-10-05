@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LandingPage (props){
     const classes = useStyles();
+    const { images } = props;
     //State to save input data
     const [data, setData] = React.useState({
         "make": "",
@@ -91,7 +92,14 @@ export default function LandingPage (props){
     return(
       
         <Grid container className={classes.mainGrid}> 
-        <Banner />
+        <Banner images={images} />
+              
+            {/* // direction="row"
+            // justify="center"
+            // alignItems="center"
+            // item sm={12}  
+            > */}
+      
         <Grid   
             container     
             direction="row"
@@ -99,18 +107,16 @@ export default function LandingPage (props){
             alignItems="center"
              item sm={12} 
              className={classes.searchGrid}  >
-               
-            <RadioButt radio={props.radioItems} key={props.radioItems} collectSearchItems={collectSearchItems} />
-
+            <RadioButt radio={props.radioItems} key={props.radioItems} collectSearchItems={(check)=>collectSearchItems(check)} />
         </Grid>
             <Grid item sm={12} className={classes.searchGrid} container     
             direction="row"
             justify="flex-end"
             alignItems="center">
-                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={getYearSelection} />
-                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
-                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={getModelSelection} />
-                <Locationdropdown LocationList={props.LocationList} getLocationSelection={getLocationSelection} />
+                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={(year)=>getYearSelection(year)} />
+                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={(makeSel)=>getMakeSelection(makeSel)} />
+                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={(modelSel)=>getModelSelection(modelSel)} />
+                <Locationdropdown LocationList={props.LocationList} getLocationSelection={(loc)=>getLocationSelection(loc)} />
                 <Button className={classes.searchButton} variant="contained" color="primary" disableElevation>
                     Search
                 </Button>
@@ -123,8 +129,8 @@ export default function LandingPage (props){
                               <p className="text-lg-right text-wrap font-weight-normal textCarstack">
                                     It’s all about pride. The pride we take in selling and servicing brand vehicles, some of the most reliable, safe and innovative on the road today. The pride we take in ensuring your experience here at CARSTACK exceeds your expectations, from first appointment through final delivery...and beyond. The pride we take in giving back, particularly our direct involvement in CARSTACK events that support our entire community.
                               </p>
-                              <button className="book-appointment border m-3 float-left float-lg-right">MEET OUT TEAM</button>
-                              <button className="book-appointment border m-3 float-left float-lg-right">CONTACT US</button>
+                              <button className="book-appointment border m-3 p-3 float-left float-lg-right">MEET OUT TEAM</button>
+                              <button className="book-appointment border m-3 p-3 float-left float-lg-right">CONTACT US</button>
 
                         </div>
                         <div className="col-lg-6">
