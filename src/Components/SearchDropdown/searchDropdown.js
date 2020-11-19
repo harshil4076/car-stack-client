@@ -33,25 +33,26 @@ const MenuProps = {
 
 export default function SearchDropDown (props){
  const { MakesList, getMakeSelection, labelTitle, widthInput, item} = props;
+ const defaultValue = MakesList[0]
     const classes = useStyles(props)
-    const [itemMake, setItemMake] = React.useState({
-      "make": item? item:""
-    });
-    const handleChange = (event) => {
-        setItemMake({...itemMake, make:event.target.value});
-      };
-      React.useCallback(() => {
-        getMakeSelection(itemMake.make)
-      }, [itemMake.make])
+    // const [itemMake, setItemMake] = React.useState();
+    // const handleChange = (event) => {
+    //     setItemMake(event.target.value);
+    //     console.log(event.target.value)
+    //   };
+    //   React.useCallback(() => {
+    //     getMakeSelection(itemMake)
+    //   }, [itemMake, getMakeSelection])
     
     return(
                 <FormControl className={classes.formControl}>
                 <InputLabel className={classes.selectBox} >{labelTitle? labelTitle : "EnterValue"}</InputLabel>
                     <Select
-                        value={itemMake.make}
-                        onChange={handleChange}
+                        onChange={getMakeSelection}
                         MenuProps={MenuProps}
                         varient="outlined"
+                        defaultValue={defaultValue}
+
                         >
                         {
                           MakesList? 

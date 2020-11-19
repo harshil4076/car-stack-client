@@ -64,7 +64,6 @@ const Routes = props => {
       {/* Auth Page Link */}
       <Route exact path="/signin">
         <Auth
-          onAuth={authUser}
           {...props}
           isSignin={true}
           errors={errors}
@@ -74,7 +73,6 @@ const Routes = props => {
       {/* Auth Page Link */}
       <Route exact path="/signup">
         <Auth
-          onAuth={authUser}
           isSignin={false}
           {...props}
           errors={errors}
@@ -91,6 +89,7 @@ const Routes = props => {
       {/* New ad Link  */}
       <Route path="/newad">
         <NewAd
+        {...props}
           yearList={YEAR}
           MakesList={MakesList}
           allMakes={MAKES}
