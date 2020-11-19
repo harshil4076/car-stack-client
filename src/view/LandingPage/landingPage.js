@@ -56,8 +56,8 @@ export default function LandingPage (props){
 
     })
     // Get Make input
-    const getMakeSelection = (itemMake) => {
-        setData({...data, make: itemMake });
+    const getMakeSelection = (e) => {
+        setData({...data, make: e.target.value });
     }
     //function to Get Model List from the makes input
     const getModelList = (makeInput) =>{
@@ -113,10 +113,10 @@ export default function LandingPage (props){
             direction="row"
             justify="flex-end"
             alignItems="center">
-                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={(year)=>getYearSelection(year)} />
-                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={(makeSel)=>getMakeSelection(makeSel)} />
-                <SearchModel widthInput={false} ModelList={data.modelList? data.modelList : null} getModelSelection={(modelSel)=>getModelSelection(modelSel)} />
-                <Locationdropdown LocationList={props.LocationList} getLocationSelection={(loc)=>getLocationSelection(loc)} />
+                <YearDropdown widthInput={false} yearList={props.yearList} getYearSelection={getYearSelection} />
+                <SearchDropDown widthInput={false} labelTitle="All Makes" MakesList={props.MakesList} getMakeSelection={getMakeSelection} />
+                <SearchModel widthInput={false} ModelList={data.modelList} getModelSelection={getModelSelection} />
+                <Locationdropdown LocationList={props.LocationList} getLocationSelection={getLocationSelection} />
                 <Button className={classes.searchButton} variant="contained" color="primary" disableElevation>
                     Search
                 </Button>

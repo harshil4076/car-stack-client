@@ -59,7 +59,8 @@ const NewAd = (props) => {
             doors, 
             fuelType, 
             currentUser, 
-            item
+            item, 
+            addNewAd
             } = props
     const classes = useStyles();
     const [newAd, setNewAd] = useState({
@@ -83,32 +84,32 @@ const NewAd = (props) => {
 
     const [picList, setPicList] = React.useState()
 
-    const getYearSelection = (data) =>{
-        setNewAd({...newAd, year:data})
+    const getYearSelection = (event) =>{
+        setNewAd({...newAd, year:event.target.value})
     }   
-    const getMakeSelection = (itemMake) => {
-        setNewAd({...newAd, make: itemMake });
+    const getMakeSelection = (event) => {
+        setNewAd({...newAd, make: event.target.value });
     }
     const getModelSelection =(itemModel) => {
         setNewAd({...newAd, model:itemModel })
     }
-    const getCategorySelection = (itemCaegory) => {
-        setNewAd({...newAd, category: itemCaegory})
+    const getCategorySelection = (event) => {
+        setNewAd({...newAd, category: event.target.value})
     }
-    const getMilage = (itemMilage) => {
-        setNewAd({...newAd, milage: itemMilage})
+    const getMilage = (item) => {
+        setNewAd({...newAd, milage: item})
     }
-    const getTransmission = (itemTrans) => {
-        setNewAd({...newAd, transmission: itemTrans})
+    const getTransmission = (event) => {
+        setNewAd({...newAd, transmission: event.target.value})
     }
-    const getFuelType = (itemFuel) => {
-        setNewAd({...newAd, fueltype: itemFuel})
+    const getFuelType = (event) => {
+        setNewAd({...newAd, fueltype:event.target.value})
     }
-    const getDoors = (itemDoors) => {
-        setNewAd({...newAd, doors: itemDoors})
+    const getDoors = (event) => {
+        setNewAd({...newAd, doors: event.target.value})
     }
-    const getEngineType = (engineType) => {
-        setNewAd({...newAd, engine: engineType})
+    const getEngineType = (engine) => {
+        setNewAd({...newAd, engine: engine})
     }
     const getColorType = (colorType) => {
         setNewAd({...newAd, color: colorType})
@@ -128,6 +129,17 @@ const NewAd = (props) => {
       }
   
     const handlePost = () =>{
+        try {
+            addNewAd(newAd)
+            .then(response => {
+                props.history.push("/myGarage");
+              })
+              .catch(() => {
+                return;
+              });
+          } catch (error) {
+            console.log(error);
+          }
     }
                 
       
@@ -143,7 +155,7 @@ const NewAd = (props) => {
 //         const list = getModelList(newAd.make);
 //         setNewAd({...newAd, modelList:list });
 //    }
-    useCallback(() => {
+    React.useEffect(() => {
         const list = getModelList(newAd.make);
         setNewAd({...newAd, modelList:list });
     }, [newAd.make])
@@ -160,7 +172,9 @@ const NewAd = (props) => {
                 direction="row"
                 justify="space-evenly"
                 alignItems="center">
-                    <YearDropdown item={item?item.year: null} widthInput={true}  yearList={yearList} getYearSelection={getYearSelection} />
+                    <SearchDropDown item={item?item.year: null} widthInput={true} labelTitle="Year" MakesList={yearList} getMakeSelection={getYearSelection}  />
+
+                    {/* <YearDropdown item={item?item.year: null} widthInput={true}  yearList={yearList} getYearSelection={getYearSelection} /> */}
                     <SearchDropDown item={item?item.make: null} widthInput={true} labelTitle="All Makes" MakesList={MakesList} getMakeSelection={getMakeSelection}  />
                 </Grid>
                 <Grid item xs={12} sm={12}
@@ -252,7 +266,7 @@ const NewAd = (props) => {
                         >
                         <Button 
                             size="small" 
-                            onClick={()=> handleImageUpload()} 
+                            onClick={handleImageUpload} 
                             variant="outlined" 
                             color="primary" >
                             Upload Images
@@ -268,7 +282,7 @@ const NewAd = (props) => {
                     <Button 
                         className={classes.postAdButton} 
                         size="large" 
-                        onClick={ ()=> handlePost()} 
+                        onClick={handlePost} 
                         variant="outlined" 
                         color="secondary">
                         {item? "Update Ad" : "Post Ad"}
