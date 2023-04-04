@@ -14,6 +14,5 @@ Carstack is my attempt to build a car tradre application. It includes the follow
 - Redux for state management.
 - Axios for making api calls.
 - JWT Token for user authentication.
-- Hosted on Netlify, www.carstack.ca.
 
 ### If you wish to work on the project send me an email (harshil4076@gmail.com).
